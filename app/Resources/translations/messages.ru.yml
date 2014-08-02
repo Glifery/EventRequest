@@ -1,0 +1,5 @@
+#security:
+#    login:
+#        username: ФИО
+#        password: Пароль
+#        remember_me: Запомнить меня
