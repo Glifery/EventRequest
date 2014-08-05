@@ -20,6 +20,7 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new Twitter\BootstrapBundle\TwitterBootstrapBundle(),
             new EventRequest\UserBundle\EventRequestUserBundle(),
+            new EventRequest\EventBundle\EventRequestEventBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
