@@ -3,7 +3,9 @@ security:
         FOS\UserBundle\Model\UserInterface: sha512
 
     role_hierarchy:
-        ROLE_ADMIN:       [ROLE_USER, ROLE_MANAGER]
+        ROLE_CLIENT:       ROLE_USER
+        ROLE_MANAGER:      ROLE_USER
+        ROLE_ADMIN:       [ROLE_CLIENT, ROLE_MANAGER]
 
     providers:
         fos_userbundle:
@@ -20,3 +22,5 @@ security:
 
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/_wdt, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/, role: ROLE_USER }

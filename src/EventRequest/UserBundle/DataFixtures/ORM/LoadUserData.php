@@ -43,9 +43,9 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
     function load(ObjectManager $manager)
     {
         $this->userManager = $this->container->get('fos_user.user_manager');
-        $user = $this->userManager->createUser();
 
         /** @var \EventRequest\UserBundle\Entity\User $user */
+        $user = $this->userManager->createUser();
         $user->setUsername('admin@example.com');
         $user->setEmail('admin@example.com');
         $user->setPlainPassword('admin');
@@ -55,6 +55,29 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
 
         $this->userManager->updateUser($user);
         $manager->persist($user);
+
+        /** @var \EventRequest\UserBundle\Entity\User $user */
+        $user = $this->userManager->createUser();
+        $user->setUsername('user@example.com');
+        $user->setEmail('user@example.com');
+        $user->setPlainPassword('user');
+        $user->setEnabled(true);
+        $user->addRole('ROLE_USER');
+
+        $this->userManager->updateUser($user);
+        $manager->persist($user);
+
+        /** @var \EventRequest\UserBundle\Entity\User $user */
+        $user = $this->userManager->createUser();
+        $user->setUsername('manager@example.com');
+        $user->setEmail('manager@example.com');
+        $user->setPlainPassword('manager');
+        $user->setEnabled(true);
+        $user->addRole('ROLE_MANAGER');
+
+        $this->userManager->updateUser($user);
+        $manager->persist($user);
+
         $manager->flush();
     }
 
