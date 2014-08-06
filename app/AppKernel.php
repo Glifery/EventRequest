@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new FOS\UserBundle\FOSUserBundle(),
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new Twitter\BootstrapBundle\TwitterBootstrapBundle(),
+            new CBC\Bundle\BootstrapBundle\BootstrapBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new Lexik\Bundle\FormFilterBundle\LexikFormFilterBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),

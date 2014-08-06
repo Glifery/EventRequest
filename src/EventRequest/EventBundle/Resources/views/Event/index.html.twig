@@ -1,7 +1,6 @@
-{% extends "TwitterBootstrapBundle::layout.html.twig" %}
+{% extends "::base.html.twig" %}
 
-{% block body %}
-    <div class="container">
+{% block content %}
         {{ form(filter) }}
         {% for event in events %}
             <div class="media">
@@ -19,5 +18,4 @@
             <div>no events</div>
         {% endfor %}
         {{ knp_pagination_render(events) }}
-    </div>
-{% endblock body %}
+{% endblock content %}

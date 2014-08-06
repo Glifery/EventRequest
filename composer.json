@@ -21,6 +21,7 @@
         "doctrine/doctrine-fixtures-bundle": "2.2.*",
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "twitter/bootstrap-bundle": "*",
+        "cbc/symfony2-bootstrap": "1.1.*",
         "gedmo/doctrine-extensions": "dev-master",
         "stof/doctrine-extensions-bundle": "~1.1@dev",
         "lexik/form-filter-bundle": "2.*@dev",
