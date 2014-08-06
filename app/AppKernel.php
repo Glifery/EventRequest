@@ -20,6 +20,7 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new Twitter\BootstrapBundle\TwitterBootstrapBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
+            new Lexik\Bundle\FormFilterBundle\LexikFormFilterBundle(),
 
             new EventRequest\UserBundle\EventRequestUserBundle(),
             new EventRequest\EventBundle\EventRequestEventBundle(),
