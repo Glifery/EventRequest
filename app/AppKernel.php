@@ -19,6 +19,8 @@ class AppKernel extends Kernel
             new FOS\UserBundle\FOSUserBundle(),
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new Twitter\BootstrapBundle\TwitterBootstrapBundle(),
+            new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
+
             new EventRequest\UserBundle\EventRequestUserBundle(),
             new EventRequest\EventBundle\EventRequestEventBundle(),
         );

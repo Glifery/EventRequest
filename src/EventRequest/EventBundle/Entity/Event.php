@@ -3,6 +3,7 @@
 namespace EventRequest\EventBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use EventRequest\UserBundle\Entity\User;
 
 /**
@@ -55,6 +56,12 @@ class Event
      * @ORM\Column(type="datetime")
      */
     private $date;
+
+    /**
+     * @Gedmo\Slug(fields={"name"})
+     * @ORM\Column(length=128, unique=true)
+     */
+    private $slug;
 
     /**
      * Get id
@@ -202,5 +209,21 @@ class Event
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * @param mixed $slug
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 }
