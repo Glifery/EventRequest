@@ -3,6 +3,7 @@
 namespace EventRequest\EventBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use EventRequest\UserBundle\Entity\User;
 
 /**
  * @ORM\Entity
@@ -28,6 +29,13 @@ class Event
      * @ORM\Column(type="text")
      */
     private $description;
+
+    /**
+     * @var User
+     * @ORM\ManyToOne(targetEntity="EventRequest\UserBundle\Entity\User")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    private $user;
 
     /**
      * @var City
@@ -171,5 +179,28 @@ class Event
     public function getCity()
     {
         return $this->city;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \EventRequest\UserBundle\Entity\User $user
+     * @return Event
+     */
+    public function setUser(\EventRequest\UserBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \EventRequest\UserBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }
