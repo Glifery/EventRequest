@@ -12,6 +12,10 @@ use EventRequest\UserBundle\Entity\User;
  */
 class Event
 {
+    const STATUS_PENDING = 0;
+    const STATUS_CURRENT = 1;
+    const STATUS_CLOSED  = 2;
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -62,6 +66,26 @@ class Event
      * @ORM\Column(length=128, unique=true)
      */
     private $slug;
+
+    /**
+     * @var integer
+     * @ORM\Column(type="integer")
+     */
+    private $status;
+
+    public function __construct()
+    {
+        $this->status = 0;
+    }
+
+    public static function getStatusList()
+    {
+        return array(
+            self::STATUS_PENDING => 'event.status.pending',
+            self::STATUS_CURRENT => 'event.status.current',
+            self::STATUS_CLOSED  => 'event.status.closed'
+        );
+    }
 
     /**
      * Get id
@@ -225,5 +249,21 @@ class Event
     public function getSlug()
     {
         return $this->slug;
+    }
+
+    /**
+     * @param int $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
+
+    /**
+     * @return int
+     */
+    public function getStatus()
+    {
+        return $this->status;
     }
 }

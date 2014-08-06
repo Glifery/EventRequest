@@ -2,6 +2,7 @@
 
 {% block body %}
     <div class="container">
+            {{ form(filter) }}
         {% for event in events %}
             <div class="media">
                 <div class="media-body">
