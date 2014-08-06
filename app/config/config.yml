@@ -28,6 +28,10 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    form:
+        resources:
+            - LexikFormFilterBundle:Form:form_div_layout.html.twig
+            - 'TwitterBootstrapBundle:Form:horizontal_form.html.twig'
 
 # Assetic Configuration
 assetic:
@@ -77,3 +81,7 @@ stof_doctrine_extensions:
     orm:
         default:
             sluggable: true
+
+knp_paginator:
+    template:
+        pagination: TwitterBootstrapBundle:Pagination:sliding.html.twig
