@@ -1,5 +1,21 @@
 {% extends "TwitterBootstrapBundle::layout.html.twig" %}
 
-{% block container %}
-Hello dddd
-{% endblock container %}
+{% block body %}
+    <div class="container">
+        {% for event in events %}
+            <div class="media">
+                <div class="media-body">
+                    <h4 class="media-heading">
+                        <small class="pull-right">{{ event.date|date('d.m.Y H.i') }}</small>
+                        <a href="#">{{ event.name }}</a>
+                    </h4>
+                    <p>{{ event.description }}</p>
+                    <h5><small>{{ event.city.country.name }} | {{ event.city.name }} | {{ event.address }}</small></h5>
+                </div>
+            </div>
+            <hr/>
+        {% else %}
+            <div>no events</div>
+        {% endfor %}
+    </div>
+{% endblock body %}

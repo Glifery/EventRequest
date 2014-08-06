@@ -8,6 +8,11 @@ class EventController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('EventRequestEventBundle:Event:index.html.twig');
+        $eventRepository = $this->get('doctrine.orm.entity_manager')->getRepository('EventRequestEventBundle:Event');
+        $events = $eventRepository->findAll();
+
+        return $this->render('EventRequestEventBundle:Event:index.html.twig', array(
+                'events' => $events
+            ));
     }
 }
