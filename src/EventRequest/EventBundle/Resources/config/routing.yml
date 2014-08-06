@@ -1,0 +1,7 @@
+event_request_event_index:
+    path:     /
+    defaults: { _controller: EventRequestEventBundle:Event:index }
+
+event_request_event_show:
+    path:     /{slug}
+    defaults: { _controller: EventRequestEventBundle:Event:show }

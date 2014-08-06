@@ -6,11 +6,14 @@ use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="EventRequest\UserBundle\Repository\UserRepository")
  * @ORM\Table(name="user")
  */
 class User extends BaseUser
 {
+    const ROLE_CLIENT = 'ROLE_CLIENT';
+    const ROLE_MANAGER = 'ROLE_MANAGER';
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")

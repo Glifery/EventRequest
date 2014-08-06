@@ -1,3 +1,7 @@
+event_request_event:
+    resource: "@EventRequestEventBundle/Resources/config/routing.yml"
+    prefix:   /
+
 event_request_user:
     resource: "@EventRequestUserBundle/Resources/config/routing.yml"
     prefix:   /

@@ -2,7 +2,6 @@
 
 namespace EventRequest\UserBundle\DataFixtures\ORM;
 
-use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\Doctrine;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
@@ -10,9 +9,14 @@ use Doctrine\Common\Persistence\ObjectManager;
 use FOS\UserBundle\Model\UserManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use EventRequest\UserBundle\Entity\User;
 
-class LoadUserData extends AbstractFixture implements FixtureInterface, ContainerAwareInterface, OrderedFixtureInterface
+class LoadUserData implements FixtureInterface, ContainerAwareInterface, OrderedFixtureInterface
 {
+    const CLIENTS_AMOUNT = 5;
+    const MANAGERS_AMOUNT = 5;
+    const PASSWORD = '1234';
+
     /**
      * @var ContainerInterface
      */
@@ -40,43 +44,43 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
      *
      * @param \Doctrine\Common\Persistence\ObjectManager $manager
      */
-    function load(ObjectManager $manager)
+    public function load(ObjectManager $manager)
     {
         $this->userManager = $this->container->get('fos_user.user_manager');
 
-        /** @var \EventRequest\UserBundle\Entity\User $user */
-        $user = $this->userManager->createUser();
-        $user->setUsername('admin@example.com');
-        $user->setEmail('admin@example.com');
-        $user->setPlainPassword('admin');
-        $user->addRole('ROLE_SUPER_ADMIN');
-        $user->setEnabled(true);
-        $user->setPhone('1234567');
+        $counter = 0;
+        while (++$counter <= self::CLIENTS_AMOUNT) {
+            $username = 'client'.$counter;
 
-        $this->userManager->updateUser($user);
-        $manager->persist($user);
+            /** @var \EventRequest\UserBundle\Entity\User $user */
+            $user = $this->userManager->createUser();
+            $user->setUsername($username);
+            $user->setEmail($username.'@example.com');
+            $user->setPlainPassword(self::PASSWORD);
+            $user->setPhone('+375295080846');
+            $user->setEnabled(true);
+            $user->addRole(User::ROLE_CLIENT);
 
-        /** @var \EventRequest\UserBundle\Entity\User $user */
-        $user = $this->userManager->createUser();
-        $user->setUsername('user@example.com');
-        $user->setEmail('user@example.com');
-        $user->setPlainPassword('user');
-        $user->setEnabled(true);
-        $user->addRole('ROLE_USER');
+            $this->userManager->updateUser($user);
+            $manager->persist($user);
+        }
 
-        $this->userManager->updateUser($user);
-        $manager->persist($user);
+        $counter = 0;
+        while (++$counter <= self::MANAGERS_AMOUNT) {
+            $username = 'manager'.$counter;
 
-        /** @var \EventRequest\UserBundle\Entity\User $user */
-        $user = $this->userManager->createUser();
-        $user->setUsername('manager@example.com');
-        $user->setEmail('manager@example.com');
-        $user->setPlainPassword('manager');
-        $user->setEnabled(true);
-        $user->addRole('ROLE_MANAGER');
+            /** @var \EventRequest\UserBundle\Entity\User $user */
+            $user = $this->userManager->createUser();
+            $user->setUsername($username);
+            $user->setEmail($username.'@example.com');
+            $user->setPlainPassword(self::PASSWORD);
+            $user->setPhone('+375295080846');
+            $user->setEnabled(true);
+            $user->addRole(User::ROLE_MANAGER);
 
-        $this->userManager->updateUser($user);
-        $manager->persist($user);
+            $this->userManager->updateUser($user);
+            $manager->persist($user);
+        }
 
         $manager->flush();
     }
@@ -86,7 +90,7 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
      *
      * @return integer
      */
-    function getOrder()
+    public function getOrder()
     {
         return 1;
     }
