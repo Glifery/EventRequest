@@ -2,7 +2,7 @@
 
 {% block body %}
     <div class="container">
-            {{ form(filter) }}
+        {{ form(filter) }}
         {% for event in events %}
             <div class="media">
                 <div class="media-body">
@@ -18,5 +18,6 @@
         {% else %}
             <div>no events</div>
         {% endfor %}
+        {{ knp_pagination_render(events) }}
     </div>
 {% endblock body %}

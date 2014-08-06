@@ -23,7 +23,8 @@
         "twitter/bootstrap-bundle": "*",
         "gedmo/doctrine-extensions": "dev-master",
         "stof/doctrine-extensions-bundle": "~1.1@dev",
-        "lexik/form-filter-bundle": "2.*@dev"
+        "lexik/form-filter-bundle": "2.*@dev",
+        "knplabs/knp-paginator-bundle": "~2.4"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 class EventController extends Controller
 {
+    const PAGER_LIMIT = 10;
+
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @return \Symfony\Component\HttpFoundation\Response
@@ -29,8 +31,12 @@ class EventController extends Controller
                 ->getQuery()
                 ->getResult()
             ;
+
+            $events = $this->paginate($events);
         } else {
             $events = $eventRepository->findBy(array(), array('id' => 'DESC'));
+
+            $events = $this->paginate($events);
         }
 
         return $this->render('EventRequestEventBundle:Event:index.html.twig', array(
@@ -56,5 +62,16 @@ class EventController extends Controller
         return $this->render('EventRequestEventBundle:Event:show.html.twig', array(
                 'event' => $event
             ));
+    }
+
+    private function paginate(array $items)
+    {
+        $paginator = $this->get('knp_paginator');
+
+        return $paginator->paginate(
+            $items,
+            $this->get('request')->query->get('page', 1),
+            self::PAGER_LIMIT
+        );
     }
 }
