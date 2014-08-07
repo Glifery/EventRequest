@@ -1,23 +1,32 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body>
-        <div>
-            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
-                <a href="{{ path('fos_user_security_logout') }}">
-                    {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
-                </a>
-            {% else %}
-                <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
-            {% endif %}
-        </div>
+{% extends 'BootstrapBundle::base.html.twig' %}
 
+{% block title %}EventRequest{% endblock title %}
+
+{% block nav %}
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <a class="navbar-brand" href="{{ path('event_request_event_index') }}">EventRequest</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse">
+                <p class="navbar-text navbar-right">
+                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                        {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
+                        <a href="{{ path('fos_user_security_logout') }}" class="navbar-link">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a>
+                    {% else %}
+                        <a href="{{ path('fos_user_security_login') }}" class="navbar-link">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+    </nav>
+{% endblock nav %}
+
+{% block body %}
+    <div class="container">
         {% for type, messages in app.session.flashBag.all %}
             {% for message in messages %}
                 <div class="{{ type }}">
@@ -25,13 +34,12 @@
                     </div>
             {% endfor %}
         {% endfor %}
-
         <div>
             {% block fos_user_content %}
             {% endblock fos_user_content %}
         </div>
+        {% block content %}{% endblock %}
+    </div>
+{% endblock body %}
 
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
-</html>
+{% block footer %}{% endblock %}
