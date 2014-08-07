@@ -1,21 +1,31 @@
 {% extends "::base.html.twig" %}
 
+{% block title %}
+    {{- 'page.index.title'|trans ~ ' ∙ ' ~ parent() -}}
+{% endblock title %}
+
 {% block content %}
-        {{ form(filter) }}
-        {% for event in events %}
-            <div class="media">
-                <div class="media-body">
-                    <h4 class="media-heading">
-                        <small class="pull-right">{{ event.date|date('d.m.Y H.i') }}</small>
-                        <a href="{{ path('event_request_event_show', {'slug': event.slug}) }}">{{ event.name }}</a>
-                    </h4>
-                    <p>{{ event.description }}</p>
-                    <h5><small>{{ event.city.country.name }} | {{ event.city.name }} | {{ event.address }}</small></h5>
-                </div>
+        <div class="row">
+            <div class="col-md-8">
+                {% for event in events %}
+                    <div class="media">
+                        <div class="media-body">
+                            <h4 class="media-heading">
+                                <small class="pull-right">{{ event.date|date('d.m.Y H.i') }}</small>
+                                <a href="{{ path('event_request_event_show', {'slug': event.slug}) }}">{{ event.name }}</a>
+                            </h4>
+                            <p>{{ event.description }}</p>
+                            <h5><small>{{ event.city.country.name }} | {{ event.city.name }} | {{ event.address }}</small></h5>
+                        </div>
+                    </div>
+                    <hr/>
+                {% else %}
+                    <div>no events</div>
+                {% endfor %}
+                {{ knp_pagination_render(events) }}
             </div>
-            <hr/>
-        {% else %}
-            <div>no events</div>
-        {% endfor %}
-        {{ knp_pagination_render(events) }}
+            <div class="col-md-4">
+                {{ form(filter) }}
+            </div>
+        </div>
 {% endblock content %}

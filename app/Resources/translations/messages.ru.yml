@@ -1,5 +1,11 @@
-#security:
-#    login:
-#        username: ФИО
-#        password: Пароль
-#        remember_me: Запомнить меня
+security:
+    login:
+        title: Авторизация
+        username: ФИО
+        password: Пароль
+        remember_me: Запомнить меня
+        submit: Войти
+
+page:
+    index:
+        title: Список событий

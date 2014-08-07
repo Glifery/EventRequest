@@ -17,6 +17,7 @@ class EventFilterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->setMethod('GET')
             ->add('name', 'filter_text', array(
                     'apply_filter' => function(QueryInterface $filterQuery, $field, $values) {
                             if (!empty($values['value'])) {
