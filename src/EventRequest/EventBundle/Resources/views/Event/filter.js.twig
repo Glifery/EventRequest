@@ -1,0 +1,37 @@
+(function() {
+    var countrySelector = '#eventFilterType_country',
+        citySelector = '#eventFilterType_city',
+        url = '{{ path('event_request_event_filter') }}'
+
+    function countryChangeHandler() {
+        var $cityBlock = $(citySelector),
+            request = {
+                type: 'post',
+                url: url,
+                data: {
+                    country: $(this).val()
+                }
+            }
+
+        $cityBlock.attr('disabled', 'disabled');
+
+        $.ajax(request).then(handleResponce);
+    }
+
+    function handleResponce(data) {
+        var $cityBlock = $(citySelector);
+
+        $cityBlock
+            .removeAttr('disabled')
+            .html($('<option>').val('').text('{{ 'page.filter.empty'|trans }}'))
+        ;
+
+        for (var index in data) {
+            $cityBlock.append($('<option>').val(data[index].id).text(data[index].name));
+        }
+    }
+
+    $(function() {
+        $(countrySelector).change(countryChangeHandler);
+    });
+})();

@@ -5,7 +5,7 @@ namespace EventRequest\EventBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="EventRequest\EventBundle\Repository\CityRepository")
  * @ORM\Table(name="city")
  */
 class City

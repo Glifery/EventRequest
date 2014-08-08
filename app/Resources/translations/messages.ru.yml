@@ -9,3 +9,5 @@ security:
 page:
     index:
         title: Список событий
+    filter:
+        empty: -не выбрано-

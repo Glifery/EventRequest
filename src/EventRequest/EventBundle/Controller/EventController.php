@@ -2,8 +2,14 @@
 
 namespace EventRequest\EventBundle\Controller;
 
+use Doctrine\ORM\QueryBuilder;
+use EventRequest\EventBundle\Form\Type\CountryFilterType;
 use EventRequest\EventBundle\Form\Type\EventFilterType;
+use EventRequest\EventBundle\Repository\CityRepository;
+use Lexik\Bundle\FormFilterBundle\Filter\FilterBuilderUpdater;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class EventController extends Controller
@@ -21,23 +27,14 @@ class EventController extends Controller
         $filterForm = $this->createForm(new EventFilterType());
         $filterForm->handleRequest($request);
 
+        $queryBuilder = $eventRepository->createQueryBuilder('e');
+        $queryBuilder->orderBy('e.id', 'DESC');
+
         if ($filterForm->isValid()) {
-            $filterBuilder = $eventRepository->createQueryBuilder('e');
-
-            $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($filterForm, $filterBuilder);
-
-            $events = $filterBuilder
-                ->orderBy('e.id', 'DESC')
-                ->getQuery()
-                ->getResult()
-            ;
-
-            $events = $this->paginate($events);
-        } else {
-            $events = $eventRepository->findBy(array(), array('id' => 'DESC'));
-
-            $events = $this->paginate($events);
+            $this->filtrate($filterForm, $queryBuilder);
         }
+
+        $events = $this->paginate($queryBuilder);
 
         return $this->render('EventRequestEventBundle:Event:index.html.twig', array(
                 'filter' => $filterForm->createView(),
@@ -64,12 +61,43 @@ class EventController extends Controller
             ));
     }
 
-    private function paginate(array $items)
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function filterAction(Request $request)
+    {
+        /** @var CityRepository $cityRepository */
+        $cityRepository = $this->getDoctrine()->getManager()->getRepository('EventRequestEventBundle:City');
+
+        $countryId = $request->request->get('country');
+        $cities = $cityRepository->findByCountryId($countryId);
+
+        return new JsonResponse($cities);
+    }
+
+    /**
+     * @param Form $filterForm
+     * @param QueryBuilder $queryBuilder
+     */
+    private function filtrate(Form $filterForm, QueryBuilder $queryBuilder)
+    {
+        /** @var FilterBuilderUpdater $filterService */
+        $filterService = $this->get('lexik_form_filter.query_builder_updater');
+
+        $filterService->addFilterConditions($filterForm, $queryBuilder);
+    }
+
+    /**
+     * @param QueryBuilder $queryBuilder
+     * @return \Knp\Component\Pager\Pagination\PaginationInterface
+     */
+    private function paginate(QueryBuilder $queryBuilder)
     {
         $paginator = $this->get('knp_paginator');
 
         return $paginator->paginate(
-            $items,
+            $queryBuilder,
             $this->get('request')->query->get('page', 1),
             self::PAGER_LIMIT
         );

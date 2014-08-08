@@ -26,13 +26,13 @@ class Country
     /**
      * @ORM\OneToMany(targetEntity="City", mappedBy="country")
      */
-    private $sities;
+    private $cities;
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->sities = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->cities = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -76,7 +76,7 @@ class Country
      */
     public function addSity(\EventRequest\EventBundle\Entity\City $sities)
     {
-        $this->sities[] = $sities;
+        $this->cities[] = $sities;
 
         return $this;
     }
@@ -88,7 +88,7 @@ class Country
      */
     public function removeSity(\EventRequest\EventBundle\Entity\City $sities)
     {
-        $this->sities->removeElement($sities);
+        $this->cities->removeElement($sities);
     }
 
     /**
@@ -96,8 +96,8 @@ class Country
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getSities()
+    public function getCities()
     {
-        return $this->sities;
+        return $this->cities;
     }
 }

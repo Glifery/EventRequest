@@ -29,3 +29,9 @@
             </div>
         </div>
 {% endblock content %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>{{ include('EventRequestEventBundle:Event:filter.js.twig') }}</script>
+    {#<script src="{{ asset('bundles/eventrequestevent/js/filter.js') }}"></script>#}
+{% endblock %}
