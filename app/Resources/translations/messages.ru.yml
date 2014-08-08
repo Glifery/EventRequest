@@ -14,3 +14,8 @@ page:
         empty: -не выбрано-
     create:
         link: Создать событие
+
+event:
+    field:
+        name: Имя
+    create: Создать
