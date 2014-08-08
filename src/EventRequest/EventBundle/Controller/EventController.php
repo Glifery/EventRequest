@@ -61,6 +61,25 @@ class EventController extends Controller
             ));
     }
 
+    public function createAction(Request $request)
+    {
+        $em = $this->get('doctrine.orm.entity_manager');
+
+        $filterForm = $this->createForm(new EventFilterType());
+        $filterForm->handleRequest($request);
+
+        if ($filterForm->isValid()) {
+            $event = $filterForm->getData();
+
+            $em->persist($event);
+            $em->flush();
+        }
+
+        return $this->render('EventRequestEventBundle:Event:create.html.twig', array(
+                'form' => $filterForm->createView(),
+            ));
+    }
+
     /**
      * @param Request $request
      * @return JsonResponse
