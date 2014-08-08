@@ -52,7 +52,16 @@ class EventFilterType extends AbstractType
                             }
                         }
                 ))
-            ->add('date', 'filter_date_range')
+            ->add('date', 'filter_date_range', array(
+                    'left_date_options' => array(
+                        'widget' => 'single_text',
+                        'format' =>'dd.MM.yyyy'
+                    ),
+                    'right_date_options' => array(
+                        'widget' => 'single_text',
+                        'format' =>'dd.MM.yyyy'
+                    )
+                ))
             ->add('save', 'submit')
         ;
 

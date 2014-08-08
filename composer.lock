@@ -4,8 +4,100 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7236af5f3ea99aa20970ef3c08e549b2",
+    "hash": "281dcf2d3d834fc9a2f0ee3b2106b3eb",
     "packages": [
+        {
+            "name": "bmatzner/jquery-bundle",
+            "version": "2.1.1",
+            "target-dir": "Bmatzner/JQueryBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bmatzner/BmatznerJQueryBundle.git",
+                "reference": "c47ebfd993782560d425081d6866393274537953"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bmatzner/BmatznerJQueryBundle/zipball/c47ebfd993782560d425081d6866393274537953",
+                "reference": "c47ebfd993782560d425081d6866393274537953",
+                "shasum": ""
+            },
+            "require": {
+                "symfony/framework-bundle": ">=2.1"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "Bmatzner\\JQueryBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT",
+                "GPLv2"
+            ],
+            "authors": [
+                {
+                    "name": "Bernd Matzner",
+                    "email": "bernd@matznermatzner.de",
+                    "homepage": "http://berndmatzner.de"
+                }
+            ],
+            "description": "jQuery Bundle for Symfony2",
+            "homepage": "http://jquery.com/",
+            "keywords": [
+                "javascript",
+                "jquery",
+                "symfony"
+            ],
+            "time": "2014-05-05 16:19:00"
+        },
+        {
+            "name": "bmatzner/jquery-ui-bundle",
+            "version": "1.10.3",
+            "target-dir": "Bmatzner/JQueryUIBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bmatzner/BmatznerJQueryUIBundle.git",
+                "reference": "43d66b83d0b1a8e080134a6f73fab380ee20d978"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bmatzner/BmatznerJQueryUIBundle/zipball/43d66b83d0b1a8e080134a6f73fab380ee20d978",
+                "reference": "43d66b83d0b1a8e080134a6f73fab380ee20d978",
+                "shasum": ""
+            },
+            "require": {
+                "bmatzner/jquery-bundle": "*",
+                "symfony/framework-bundle": ">=2.1"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "Bmatzner\\JQueryUIBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT",
+                "GPLv2"
+            ],
+            "authors": [
+                {
+                    "name": "Bernd Matzner",
+                    "email": "bernd@matznermatzner.de",
+                    "homepage": "http://berndmatzner.de"
+                }
+            ],
+            "description": "jQuery UI Bundle for Symfony2",
+            "homepage": "http://jqueryui.com/",
+            "keywords": [
+                "javascript",
+                "jquery",
+                "symfony",
+                "ui"
+            ],
+            "time": "2013-05-19 14:33:38"
+        },
         {
             "name": "cbc/symfony2-bootstrap",
             "version": "v1.1.0",
@@ -1275,12 +1367,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/lexik/LexikFormFilterBundle.git",
-                "reference": "01a663fd95e5cce0041d109a8f7be7c6f97c30c1"
+                "reference": "1702d4faed7deb54059e0903773b3424243cf4f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lexik/LexikFormFilterBundle/zipball/01a663fd95e5cce0041d109a8f7be7c6f97c30c1",
-                "reference": "01a663fd95e5cce0041d109a8f7be7c6f97c30c1",
+                "url": "https://api.github.com/repos/lexik/LexikFormFilterBundle/zipball/1702d4faed7deb54059e0903773b3424243cf4f9",
+                "reference": "1702d4faed7deb54059e0903773b3424243cf4f9",
                 "shasum": ""
             },
             "require": {
@@ -1326,7 +1418,7 @@
                 "filter",
                 "form"
             ],
-            "time": "2014-07-29 08:37:56"
+            "time": "2014-08-08 13:13:27"
         },
         {
             "name": "monolog/monolog",

@@ -32,6 +32,11 @@
 
 {% block javascripts %}
     {{ parent() }}
-    <script>{{ include('EventRequestEventBundle:Event:filter.js.twig') }}</script>
-    {#<script src="{{ asset('bundles/eventrequestevent/js/filter.js') }}"></script>#}
+    <script type="text/javascript" src="{{ asset('bundles/bmatznerjqueryui/js/minified/jquery-ui.min.js') }}"></script>
+    <script type="text/javascript">{{ include('EventRequestEventBundle:Event:filter.js.twig') }}</script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/bmatznerjqueryui/css/smoothness/jquery-ui.min.css') }}" />
 {% endblock %}
