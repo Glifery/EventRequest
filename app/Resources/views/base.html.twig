@@ -4,23 +4,32 @@
 
 {% block nav %}
     <nav class="navbar navbar-default" role="navigation">
-        <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <a class="navbar-brand" href="{{ path('event_request_event_index') }}">EventRequest</a>
-            </div>
+        <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="{{ path('event_request_event_index') }}">{{ 'page.logo'|trans }}</a>
+                </div>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse">
-                <p class="navbar-text navbar-right">
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse">
+                    <div class="nav navbar-nav">
+                        <a class="btn btn-success navbar-btn" href="{{ path('event_request_event_create') }}">{{ 'page.create.link'|trans }}</a>
+                    </div>
                     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                        {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
-                        <a href="{{ path('fos_user_security_logout') }}" class="navbar-link">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a>
+                        <div class="nav navbar-nav navbar-right">
+                            <a href="{{ path('fos_user_security_logout') }}" class="btn btn-default navbar-btn">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a>
+                        </div>
+                        <p class="navbar-text navbar-right">
+                            {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}&nbsp;&nbsp;&nbsp;
+                        </p>
                     {% else %}
-                        <a href="{{ path('fos_user_security_login') }}" class="navbar-link">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+                        <div class="nav navbar-nav navbar-right">
+                            <a href="{{ path('fos_user_security_login') }}" class="btn btn-default navbar-btn">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+                        </div>
                     {% endif %}
-                </p>
-            </div>
+
+
+                </div>
         </div>
     </nav>
 {% endblock nav %}

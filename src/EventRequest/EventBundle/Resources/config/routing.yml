@@ -3,8 +3,12 @@ event_request_event_index:
     defaults: { _controller: EventRequestEventBundle:Event:index }
 
 event_request_event_show:
-    path:     /event/{slug}
+    path:     /show/{slug}
     defaults: { _controller: EventRequestEventBundle:Event:show }
+
+event_request_event_create:
+    path:     /create
+    defaults: { _controller: EventRequestEventBundle:Event:create }
 
 event_request_event_filter:
     path:     /xhr/filter

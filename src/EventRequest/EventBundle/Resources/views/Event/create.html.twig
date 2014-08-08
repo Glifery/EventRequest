@@ -1,0 +1,27 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}
+    {{- 'page.create.title'|trans ~ ' ∙ ' ~ parent() -}}
+{% endblock title %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-8">
+            {{ form(form) }}
+        </div>
+        <div class="col-md-4">
+            ...
+        </div>
+    </div>
+{% endblock content %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/bmatznerjqueryui/js/minified/jquery-ui.min.js') }}"></script>
+    <script type="text/javascript">{{ include('EventRequestEventBundle:Event:form.js.twig') }}</script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/bmatznerjqueryui/css/smoothness/jquery-ui.min.css') }}" />
+{% endblock %}

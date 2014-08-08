@@ -4,6 +4,7 @@ namespace EventRequest\EventBundle\Controller;
 
 use Doctrine\ORM\QueryBuilder;
 use EventRequest\EventBundle\Form\Type\CountryFilterType;
+use EventRequest\EventBundle\Form\Type\EventCreateType;
 use EventRequest\EventBundle\Form\Type\EventFilterType;
 use EventRequest\EventBundle\Repository\CityRepository;
 use Lexik\Bundle\FormFilterBundle\Filter\FilterBuilderUpdater;
@@ -37,7 +38,7 @@ class EventController extends Controller
         $events = $this->paginate($queryBuilder);
 
         return $this->render('EventRequestEventBundle:Event:index.html.twig', array(
-                'filter' => $filterForm->createView(),
+                'form' => $filterForm->createView(),
                 'events' => $events
             ));
     }
@@ -58,6 +59,27 @@ class EventController extends Controller
 
         return $this->render('EventRequestEventBundle:Event:show.html.twig', array(
                 'event' => $event
+            ));
+    }
+
+    public function createAction(Request $request)
+    {
+        $em = $this->get('doctrine.orm.entity_manager');
+
+        $filterForm = $this->createForm(new EventCreateType());
+        $filterForm->handleRequest($request);
+
+        if ($filterForm->isValid()) {
+            $event = $filterForm->getData();
+
+            $em->persist($event);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('event_request_event_index'));
+        }
+
+        return $this->render('EventRequestEventBundle:Event:create.html.twig', array(
+                'form' => $filterForm->createView(),
             ));
     }
 

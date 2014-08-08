@@ -7,7 +7,15 @@ security:
         submit: Войти
 
 page:
+    logo: EventRequest
     index:
         title: Список событий
     filter:
         empty: -не выбрано-
+    create:
+        link: Создать событие
+
+event:
+    field:
+        name: Имя
+    create: Создать
