@@ -1,0 +1,7 @@
+parameters:
+#    event_request_offer.example.class: EventRequest\OfferBundle\Example
+
+services:
+#    event_request_offer.example:
+#        class: %event_request_offer.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
