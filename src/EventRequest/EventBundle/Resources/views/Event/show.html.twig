@@ -1,23 +1,10 @@
-{% extends "::base.html.twig" %}
-
-{% block content %}
-    <div class="row">
-        <div class="col-md-8">
-            <div class="media">
-                <div class="media-body">
-                    <h4 class="media-heading">
-                        <small class="pull-right">{{ event.date|date('d.m.Y H.i') }}</small>
-                        <a href="{{ path('event_request_event_show', {'slug': event.slug}) }}">{{ event.name }}</a>
-                    </h4>
-                    <p>{{ event.description }}</p>
-                    <h5><small>{{ event.city.country.name }} | {{ event.city.name }} | {{ event.address }}</small></h5>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            {{ render(controller('EventRequestOfferBundle:Offer:event', {
-                'event': event
-            })) }}
-        </div>
+<div class="media">
+    <div class="media-body">
+        <h4 class="media-heading">
+            <small class="pull-right">{{ event.date|date('d.m.Y H.i') }}</small>
+            {#<a href="{{ path('event_request_event_show', {'slug': event.slug}) }}">{{ event.name }}</a>#}
+        </h4>
+        <p>{{ event.description }}</p>
+        <h5><small>{{ event.city.country.name }} | {{ event.city.name }} | {{ event.address }}</small></h5>
     </div>
-{% endblock content %}
+</div>

@@ -3,6 +3,7 @@
 namespace EventRequest\EventBundle\Controller;
 
 use Doctrine\ORM\QueryBuilder;
+use EventRequest\EventBundle\Entity\Event;
 use EventRequest\EventBundle\Form\Type\CountryFilterType;
 use EventRequest\EventBundle\Form\Type\EventCreateType;
 use EventRequest\EventBundle\Form\Type\EventFilterType;
@@ -44,16 +45,13 @@ class EventController extends Controller
     }
 
     /**
-     * @param string $slug
+     * @param \EventRequest\EventBundle\Entity\Event $event
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showAction($slug, Request $request)
+    public function showAction(Event $event, Request $request)
     {
-        $eventRepository = $this->get('doctrine.orm.entity_manager')->getRepository('EventRequestEventBundle:Event');
-        $event = $eventRepository->findOneBy(array('slug' => $slug));
-
         if (!$event) {
             throw $this->createNotFoundException('Event with slug '.$slug.' does not exist');
         }

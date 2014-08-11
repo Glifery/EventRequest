@@ -47,9 +47,14 @@ class Offer
 
     /**
      * @var \DateTime
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
      */
     private $createdAt;
+
+    public function __construct()
+    {
+        $this->selected = false;
+    }
 
     /**
      * @param \DateTime $createdAt

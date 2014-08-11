@@ -11,12 +11,26 @@ use Symfony\Component\HttpFoundation\Request;
 
 class OfferController extends Controller
 {
-    public function eventAction(Event $event, Request $request)
+    /**
+     * @param string $slug
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response|\Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     */
+    public function eventAction($slug, Request $request)
     {
         /** @var OfferStatusResolver $statusResolver */
         $statusResolver = $this->get('event_request_offer.status_resolver');
         $context = $this->get('security.context');
-        $renderData = array();
+        $eventRepository = $this->get('doctrine.orm.entity_manager')->getRepository('EventRequestEventBundle:Event');
+
+        $event = $eventRepository->findOneBy(array('slug' => $slug));
+        if (!$event) {
+            return $this->createNotFoundException('Event with slug \''.$slug.'\' not found');
+        }
+
+        $renderData = array(
+            'event' => $event
+        );
 
         $statusResolver->setEvent($event);
 
@@ -39,7 +53,7 @@ class OfferController extends Controller
 
                 $em = $this->get('doctrine.orm.entity_manager');
                 $em->persist($offer);
-                $em->flush($em);
+                $em->flush();
             }
 
             $renderData['form'] = $offerForm->createView();
@@ -52,14 +66,6 @@ class OfferController extends Controller
             $renderData['offers'] = $offers;
         }
 
-        return $this->render('EventRequestOfferBundle:Offer:index.html.twig', $renderData);
-    }
-
-    public function indexAction(Event $event, Request $request)
-    {
-
-        return $this->render('EventRequestOfferBundle:Offer:index.html.twig', array(
-                'form' => $offerForm->createView()
-            ));
+        return $this->render('EventRequestOfferBundle:Offer:event.html.twig', $renderData);
     }
 }
