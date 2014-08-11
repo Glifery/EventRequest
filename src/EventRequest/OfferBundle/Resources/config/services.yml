@@ -1,7 +1,7 @@
 parameters:
-#    event_request_offer.example.class: EventRequest\OfferBundle\Example
+    event_request_offer.status_resolver.class: EventRequest\OfferBundle\Service\OfferStatusResolver
 
 services:
-#    event_request_offer.example:
-#        class: %event_request_offer.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    event_request_offer.status_resolver:
+        class: %event_request_offer.status_resolver.class%
+        arguments: [@security.context, @doctrine.orm.entity_manager]

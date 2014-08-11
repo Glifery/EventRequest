@@ -45,10 +45,11 @@ class EventController extends Controller
 
     /**
      * @param string $slug
+     * @param \Symfony\Component\HttpFoundation\Request $request
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showAction($slug)
+    public function showAction($slug, Request $request)
     {
         $eventRepository = $this->get('doctrine.orm.entity_manager')->getRepository('EventRequestEventBundle:Event');
         $event = $eventRepository->findOneBy(array('slug' => $slug));
@@ -62,6 +63,10 @@ class EventController extends Controller
             ));
     }
 
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function createAction(Request $request)
     {
         $em = $this->get('doctrine.orm.entity_manager');

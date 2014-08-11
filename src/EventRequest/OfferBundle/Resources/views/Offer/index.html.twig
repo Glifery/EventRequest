@@ -1,2 +1,11 @@
 return index!!
-{{ form(form) }}
+
+{% if form is defined %}
+    {{ form(form) }}
+{% endif %}
+
+{% for offer in offers %}
+    <div>{{ offer.user.username }} offer {{ offer.price }}</div>
+{% else %}
+    no offers!!
+{% endfor %}
