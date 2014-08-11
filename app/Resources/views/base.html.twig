@@ -12,9 +12,11 @@
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse">
-                    <div class="nav navbar-nav">
-                        <a class="btn btn-success navbar-btn" href="{{ path('event_request_event_create') }}">{{ 'page.create.link'|trans }}</a>
-                    </div>
+                    {% if is_granted("ROLE_CLIENT") %}
+                        <div class="nav navbar-nav">
+                            <a class="btn btn-success navbar-btn" href="{{ path('event_request_event_create') }}">{{ 'page.create.link'|trans }}</a>
+                        </div>
+                    {% endif %}
                     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                         <div class="nav navbar-nav navbar-right">
                             <a href="{{ path('fos_user_security_logout') }}" class="btn btn-default navbar-btn">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a>

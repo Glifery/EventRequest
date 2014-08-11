@@ -32,7 +32,7 @@ class OfferStatusResolver
     /**
      * @var boolean
      */
-    private $isAuthUser;
+    private $isAnonym;
 
     public function __construct(SecurityContext $context, EntityManager $em)
     {
@@ -47,32 +47,41 @@ class OfferStatusResolver
 
     public function setUser(User $user)
     {
-        $this->isAuthUser = false;
+        $this->isAnonym = false;
         $this->user = $user;
     }
 
     public function setNoUser()
     {
-        $this->isAuthUser = true;
+        $this->isAnonym = true;
     }
 
+    /**
+     * @return bool
+     * @throws \UnexpectedValueException
+     */
     private function isValid()
     {
         if (!$this->event) {
             throw new \UnexpectedValueException('Property \'event\' has an unexpected value');
         }
 
-        if (!($this->isAuthUser === true) && !($this->isAuthUser === false)) {
+        if (!($this->isAnonym === true) && !($this->isAnonym === false)) {
             throw new \UnexpectedValueException('Property \'isAuthUser\' has an unexpected value');
         }
 
-        if (($this->isAuthUser !== true) && (!$this->user)) {
+        if (($this->isAnonym !== true) && (!$this->user)) {
             throw new \UnexpectedValueException('Property \'user\' has an unexpected value');
         }
 
         return true;
     }
 
+    /**
+     * @param Event $event
+     * @param User $user
+     * @return \EventRequest\OfferBundle\Entity\Offer
+     */
     private function getUserOffer(Event $event, User $user)
     {
         $offerRepository = $this->em->getRepository('EventRequestOfferBundle:Offer');
@@ -85,6 +94,9 @@ class OfferStatusResolver
         return $offerRepository->findOneBy($thisUserCriteria);
     }
 
+    /**
+     * @return bool
+     */
     public function canMakeOffer()
     {
         if (!$this->isValid()) {
@@ -106,7 +118,10 @@ class OfferStatusResolver
         return true;
     }
 
-    public function canShowOffers()
+    /**
+     * @return bool
+     */
+    public function canSeeOffers()
     {
         if (!$this->isValid()) {
             return false;
@@ -117,5 +132,45 @@ class OfferStatusResolver
         }
 
         return true;
+    }
+
+    /**
+     * @return bool
+     */
+    public function canSelectOffer()
+    {
+        if (!$this->isValid()) {
+            return false;
+        }
+
+        if ($this->isAnonym || ($this->user !== $this->event->getUser())) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * @return bool
+     */
+    public function canSeeSelectedOffer()
+    {
+        if (!$this->isValid()) {
+            return false;
+        }
+
+        if ($this->isAnonym) {
+            return false;
+        }
+
+        if ($this->user == $this->event->getUser()) {
+            return true;
+        }
+
+        if (($offer = $this->getUserOffer($this->event, $this->user)) && ($this->user === $offer->getUser())) {
+            return true;
+        }
+
+        return false;
     }
 } 

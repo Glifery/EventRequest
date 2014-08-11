@@ -18,4 +18,9 @@ page:
 event:
     field:
         name: Имя
+        status: Состояние
+        status_list:
+            0: В ожидании
+            1: Текущee
+            2: Закрытое
     create: Создать

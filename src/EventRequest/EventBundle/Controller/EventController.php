@@ -13,6 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class EventController extends Controller
 {
@@ -63,17 +64,25 @@ class EventController extends Controller
 
     /**
      * @param Request $request
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function createAction(Request $request)
     {
+        if (!$this->get('security.context')->isGranted('ROLE_CLIENT')) {
+            throw new AccessDeniedException('Access denied for non client users');
+        }
+
         $em = $this->get('doctrine.orm.entity_manager');
 
         $filterForm = $this->createForm(new EventCreateType());
         $filterForm->handleRequest($request);
 
         if ($filterForm->isValid()) {
+            $user = $this->get('security.context')->getToken()->getUser();
+            /** @var Event $event */
             $event = $filterForm->getData();
+            $event->setUser($user);
 
             $em->persist($event);
             $em->flush();
