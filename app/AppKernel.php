@@ -24,6 +24,7 @@ class AppKernel extends Kernel
             new Lexik\Bundle\FormFilterBundle\LexikFormFilterBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Bmatzner\JQueryUIBundle\BmatznerJQueryUIBundle(),
+            new SC\DatetimepickerBundle\SCDatetimepickerBundle(),
 
             new EventRequest\UserBundle\EventRequestUserBundle(),
             new EventRequest\EventBundle\EventRequestEventBundle(),

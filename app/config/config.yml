@@ -84,3 +84,6 @@ stof_doctrine_extensions:
 knp_paginator:
     template:
         pagination: TwitterBootstrapBundle:Pagination:sliding.html.twig
+
+sc_datetimepicker:
+    picker: ~

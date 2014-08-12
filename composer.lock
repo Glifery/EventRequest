@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "281dcf2d3d834fc9a2f0ee3b2106b3eb",
+    "hash": "5395560bcfa9f489d81a2cdcc3e564f9",
     "packages": [
         {
             "name": "bmatzner/jquery-bundle",
@@ -1726,6 +1726,52 @@
             "time": "2014-07-19 10:52:35"
         },
         {
+            "name": "stephanecollot/datetimepicker-bundle",
+            "version": "dev-master",
+            "target-dir": "SC/DatetimepickerBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stephanecollot/DatetimepickerBundle.git",
+                "reference": "7c5bc619344c9f77debf54643057e79557ed8f9a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stephanecollot/DatetimepickerBundle/zipball/7c5bc619344c9f77debf54643057e79557ed8f9a",
+                "reference": "7c5bc619344c9f77debf54643057e79557ed8f9a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3",
+                "symfony/framework-bundle": "2.*",
+                "symfony/symfony": "2.*"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "SC\\DatetimepickerBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Stephane Collot"
+                }
+            ],
+            "description": "Symfony bundle for Bootstrap DateTime picker",
+            "keywords": [
+                "bootstrap",
+                "bundle",
+                "datepicker",
+                "picker",
+                "symfony",
+                "timepicker"
+            ],
+            "time": "2014-04-22 08:19:19"
+        },
+        {
             "name": "stof/doctrine-extensions-bundle",
             "version": "dev-master",
             "target-dir": "Stof/DoctrineExtensionsBundle",
@@ -2442,7 +2488,8 @@
         "friendsofsymfony/user-bundle": 20,
         "gedmo/doctrine-extensions": 20,
         "stof/doctrine-extensions-bundle": 20,
-        "lexik/form-filter-bundle": 20
+        "lexik/form-filter-bundle": 20,
+        "stephanecollot/datetimepicker-bundle": 20
     },
     "prefer-stable": false,
     "platform": {

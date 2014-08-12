@@ -33,22 +33,29 @@ class EventCreateType extends AbstractType
                     'property' => 'name',
                     'empty_value' => 'page.filter.empty',
                     'mapped' => false
-//                    'empty_value' => 'page.filter.empty',
-//                    'apply_filter' => function(QueryInterface $filterQuery, $field, $values) {
-//                            if (!empty($values['value'])) {
-//                                $qb = $filterQuery->getQueryBuilder('e');
-//                                $qb
-//                                    ->innerJoin('e.city', 'city')
-//                                    ->andWhere('city.country = :country')
-//                                    ->setParameter('country', $values['value'])
-//                                ;
-//                            }
-//                        }
                 ))
-            ->add('date', 'date', array(
-                    'widget' => 'single_text',
-                    'format' =>'dd.MM.yyyy'
-                ))
+            ->add('date', 'collot_datetime', array(
+                    'date_widget' => "single_text",
+                    'time_widget' => "single_text",
+                    'pickerOptions' => array(
+                        'format' => 'mm.dd.yyyy hh:ii',
+                        'weekStart' => 0,
+                        'startDate' => date('m/d/Y H:i'),
+                        'autoclose' => true,
+                        'startView' => 'month',
+                        'minView' => 'hour',
+                        'maxView' => 'decade',
+                        'todayBtn' => false,
+                        'todayHighlight' => true,
+                        'keyboardNavigation' => true,
+                        'language' => 'ru',
+                        'forceParse' => true,
+                        'minuteStep' => 5,
+                        'pickerReferer ' => 'default',
+                        'pickerPosition' => 'bottom-right',
+                        'viewSelect' => 'hour',
+                        'showMeridian' => false,
+                    )))
             ->add('save', 'submit')
         ;
 
@@ -60,7 +67,6 @@ class EventCreateType extends AbstractType
                     'property'    => 'name',
                     'empty_value' => 'page.filter.empty',
                     'choices'     => $cities,
-//                    'required' => false
                 ));
         };
 
