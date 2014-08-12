@@ -25,10 +25,13 @@ class AppKernel extends Kernel
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Bmatzner\JQueryUIBundle\BmatznerJQueryUIBundle(),
             new SC\DatetimepickerBundle\SCDatetimepickerBundle(),
+            new JMS\SerializerBundle\JMSSerializerBundle(),
+            new FOS\RestBundle\FOSRestBundle(),
 
             new EventRequest\UserBundle\EventRequestUserBundle(),
             new EventRequest\EventBundle\EventRequestEventBundle(),
             new EventRequest\OfferBundle\EventRequestOfferBundle(),
+            new EventRequest\ApiBundle\EventRequestApiBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
