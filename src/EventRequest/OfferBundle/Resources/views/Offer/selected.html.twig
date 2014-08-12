@@ -6,7 +6,7 @@
         selected!!
         <div>{{ offer.user.username }} offer {{ offer.price }} at {{ offer.createdAt|date('m.d.Y') }}</div>
         {% if offer.user == user and expired %}
-            I can close!!
+            I can close!! <a href="{{ path('event_request_offer_close', {'eventId': event.id}) }}">close!!</a>
         {% endif %}
         {% if event.user == user and expired %}
             Manager can close!!

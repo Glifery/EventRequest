@@ -19,7 +19,7 @@ class OfferController extends Controller
      * @throws \Doctrine\ORM\EntityNotFoundException
      * @return \Symfony\Component\HttpFoundation\Response|\Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
-    public function eventAction($slug, Request $request)
+    public function indexAction($slug, Request $request)
     {
         /** @var OfferStatusResolver $statusResolver */
         $statusResolver = $this->get('event_request_offer.status_resolver');
@@ -32,18 +32,12 @@ class OfferController extends Controller
             return $this->createNotFoundException('Event with slug \''.$slug.'\' not found');
         }
 
+        $statusResolver->initUser();
         $statusResolver->setEvent($event);
-
-        if ($context->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-            $user = $context->getToken()->getUser();
-            $statusResolver->setUser($user);
-        } else {
-            $statusResolver->setNoUser();
-        }
 
         $renderData = array(
             'event' => $event,
-            'user' => $user,
+            'user' => $statusResolver->getUser(),
             'expired' => ((new \DateTime()) >= $event->getDate())
         );
 
@@ -95,6 +89,60 @@ class OfferController extends Controller
         if ($event->getStatus() === Event::STATUS_CLOSED) {
             return $this->render('EventRequestOfferBundle:Offer:base.html.twig', $renderData);
         }
+    }
+
+    /**
+     * @param integer $offerId
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     */
+    public function selectAction($offerId)
+    {
+        $em = $this->get('doctrine.orm.entity_manager');
+        $offerRepository = $em->getRepository('EventRequestOfferBundle:Offer');
+
+        $offer = $offerRepository->find($offerId);
+        if (!$offer) {
+            return $this->createNotFoundException('Offer with id \''.$offerId.'\' not found');
+        }
+
+        $statusResolver = $this->get('event_request_offer.status_resolver');
+        $statusResolver->initUser();
+        $statusResolver->setEvent($offer->getEvent());
+
+        if ($statusResolver->canSelectOffer()) {
+            $statusResolver->selectOffer($offer);
+        }
+
+        return $this->redirect($this->generateUrl('event_request_offer_index', array(
+                    'slug' => $offer->getEvent()->getSlug()
+                )));
+    }
+
+    /**
+     * @param integer $eventId
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     */
+    public function closeAction($eventId)
+    {
+        $em = $this->get('doctrine.orm.entity_manager');
+        $eventRepository = $em->getRepository('EventRequestEventBundle:Event');
+
+        $event = $eventRepository->find($eventId);
+        if (!$event) {
+            return $this->createNotFoundException('Event with id \''.$eventId.'\' not found');
+        }
+
+        $statusResolver = $this->get('event_request_offer.status_resolver');
+        $statusResolver->initUser();
+        $statusResolver->setEvent($event);
+
+        if ($statusResolver->canCloseEvent()) {
+            $statusResolver->closeEvent();
+        }
+
+        return $this->redirect($this->generateUrl('event_request_offer_index', array(
+                    'slug' => $event->getSlug()
+                )));
     }
 
     /**

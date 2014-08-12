@@ -4,6 +4,7 @@ namespace EventRequest\OfferBundle\Service;
 
 use Doctrine\ORM\EntityManager;
 use EventRequest\EventBundle\Entity\Event;
+use EventRequest\OfferBundle\Entity\Offer;
 use EventRequest\UserBundle\Entity\User;
 use Symfony\Component\Security\Core\SecurityContext;
 
@@ -40,20 +41,38 @@ class OfferStatusResolver
         $this->em = $em;
     }
 
+    public function initUser()
+    {
+        if ($this->context->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            $user = $this->context->getToken()->getUser();
+            $this->setUser($user);
+        } else {
+            $this->setNoUser();
+        }
+    }
+
     public function setEvent(Event $event)
     {
         $this->event = $event;
     }
 
-    public function setUser(User $user)
+    private function setUser(User $user)
     {
         $this->isAnonym = false;
         $this->user = $user;
     }
 
-    public function setNoUser()
+    private function setNoUser()
     {
         $this->isAnonym = true;
+    }
+
+    /**
+     * @return User
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 
     /**
@@ -147,6 +166,34 @@ class OfferStatusResolver
             return false;
         }
 
+        if ($this->event->getStatus() !== Event::STATUS_PENDING) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * @return bool
+     */
+    public function canCloseEvent()
+    {
+        if (!$this->isValid()) {
+            return false;
+        }
+
+        $selectedOffer = $this->em->getRepository('EventRequestOfferBundle:Offer')->findOneBy(array(
+                'event' => $this->event,
+                'selected' => true
+            ));
+        if ($this->isAnonym || !$selectedOffer || ($this->user !== $selectedOffer->getUser())) {
+            return false;
+        }
+
+        if ($this->event->getStatus() !== Event::STATUS_CURRENT) {
+            return false;
+        }
+
         return true;
     }
 
@@ -172,5 +219,23 @@ class OfferStatusResolver
         }
 
         return false;
+    }
+
+    public function selectOffer(Offer $offer)
+    {
+        $this->event->setStatus(Event::STATUS_CURRENT);
+        $offer->setSelected(true);
+
+        $this->em->persist($this->event);
+        $this->em->persist($offer);
+
+        $this->em->flush();
+    }
+
+    public function closeEvent()
+    {
+        $this->event->setStatus(Event::STATUS_CLOSED);
+        $this->em->persist($this->event);
+        $this->em->flush();
     }
 } 

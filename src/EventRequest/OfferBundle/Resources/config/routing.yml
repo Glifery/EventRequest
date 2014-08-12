@@ -1,3 +1,11 @@
-event_request_offer_event:
+event_request_offer_index:
     path:     /show/{slug}
-    defaults: { _controller: EventRequestOfferBundle:Offer:event }
+    defaults: { _controller: EventRequestOfferBundle:Offer:index }
+
+event_request_offer_select:
+    path:     /offer/select/{offerId}
+    defaults: { _controller: EventRequestOfferBundle:Offer:select }
+    
+event_request_offer_close:
+    path:     /offer/close/{eventId}
+    defaults: { _controller: EventRequestOfferBundle:Offer:close }
