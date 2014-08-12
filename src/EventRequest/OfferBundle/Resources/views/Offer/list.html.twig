@@ -1,0 +1,26 @@
+{% extends 'EventRequestOfferBundle:Offer:base.html.twig' %}
+
+{% block control %}
+
+    {% block control_form %}
+        {% if form is defined %}
+            {{ form(form) }}
+        {% endif %}
+    {% endblock control_form %}
+
+    {% block control_list %}
+        {% if offers is defined %}
+            {% for offer in offers %}
+                <div>
+                    {{ offer.user.username }} offer {{ offer.price }} at {{ offer.createdAt|date('m.d.Y') }}
+                    {% if selectable %}
+                        <a href="{{ path('event_request_offer_select', {'offerId': offer.id}) }}">Select!!</a>
+                    {% endif %}
+                </div>
+            {% else %}
+                no offers yet!!
+            {% endfor %}
+        {% endif %}
+    {% endblock control_list %}
+
+{% endblock control %}

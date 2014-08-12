@@ -3,6 +3,7 @@
 namespace EventRequest\EventBundle\Controller;
 
 use Doctrine\ORM\QueryBuilder;
+use EventRequest\EventBundle\Entity\Event;
 use EventRequest\EventBundle\Form\Type\CountryFilterType;
 use EventRequest\EventBundle\Form\Type\EventCreateType;
 use EventRequest\EventBundle\Form\Type\EventFilterType;
@@ -12,6 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class EventController extends Controller
 {
@@ -44,15 +46,13 @@ class EventController extends Controller
     }
 
     /**
-     * @param string $slug
+     * @param \EventRequest\EventBundle\Entity\Event $event
+     * @param \Symfony\Component\HttpFoundation\Request $request
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showAction($slug)
+    public function showAction(Event $event, Request $request)
     {
-        $eventRepository = $this->get('doctrine.orm.entity_manager')->getRepository('EventRequestEventBundle:Event');
-        $event = $eventRepository->findOneBy(array('slug' => $slug));
-
         if (!$event) {
             throw $this->createNotFoundException('Event with slug '.$slug.' does not exist');
         }
@@ -62,15 +62,27 @@ class EventController extends Controller
             ));
     }
 
+    /**
+     * @param Request $request
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function createAction(Request $request)
     {
+        if (!$this->get('security.context')->isGranted('ROLE_CLIENT')) {
+            throw new AccessDeniedException('Access denied for non client users');
+        }
+
         $em = $this->get('doctrine.orm.entity_manager');
 
         $filterForm = $this->createForm(new EventCreateType());
         $filterForm->handleRequest($request);
 
         if ($filterForm->isValid()) {
+            $user = $this->get('security.context')->getToken()->getUser();
+            /** @var Event $event */
             $event = $filterForm->getData();
+            $event->setUser($user);
 
             $em->persist($event);
             $em->flush();
