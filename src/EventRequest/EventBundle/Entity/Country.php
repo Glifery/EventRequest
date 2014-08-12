@@ -3,6 +3,7 @@
 namespace EventRequest\EventBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\Exclude;
 
 /**
  * @ORM\Entity
@@ -25,6 +26,7 @@ class Country
 
     /**
      * @ORM\OneToMany(targetEntity="City", mappedBy="country")
+     * @Exclude
      */
     private $cities;
     /**
