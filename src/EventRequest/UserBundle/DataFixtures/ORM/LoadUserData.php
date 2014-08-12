@@ -68,6 +68,7 @@ class LoadUserData implements FixtureInterface, ContainerAwareInterface, Ordered
             $user->setPlainPassword(self::PASSWORD);
             $user->setPhone('+375295080846');
             $user->setEnabled(true);
+            $user->addRole(User::ROLE_CLIENT);
 
             $userManager->updateUser($user);
             $manager->persist($user);
@@ -96,6 +97,7 @@ class LoadUserData implements FixtureInterface, ContainerAwareInterface, Ordered
             $user->setCompany('manager company...');
             $user->setPlainPassword(self::PASSWORD);
             $user->setEnabled(true);
+            $user->addRole(User::ROLE_MANAGER);
 
             $userManager->updateUser($user);
             $manager->persist($user);

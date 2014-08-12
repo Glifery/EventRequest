@@ -14,6 +14,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 abstract class User extends BaseUser
 {
+    const ROLE_CLIENT = 'ROLE_CLIENT';
+    const ROLE_MANAGER = 'ROLE_MANAGER';
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")

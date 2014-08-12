@@ -12,7 +12,7 @@
                 <h4>{{ 'offer.list'|trans }}:</h4>
                 <table class="table">
                     <thead>
-                        <th>{{ 'offer.field.user'|trans }}</th>
+                        <th>{{ 'offer.field.manager'|trans }}</th>
                         <th>{{ 'offer.field.price'|trans }}</th>
                         <th>{{ 'offer.field.createdAt'|trans }}</th>
                         {% if selectable %}
@@ -22,7 +22,7 @@
                     <tbody>
                         {% for offer in offers %}
                             <tr>
-                                <td>{{ offer.user.username }}</td>
+                                <td>{{ offer.manager.username }}</td>
                                 <td>{{ offer.price }}</td>
                                 <td>{{ offer.createdAt|date('m.d.Y H:i') }}</td>
                                 {% if selectable %}
