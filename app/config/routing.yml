@@ -1,6 +1,6 @@
 event_request_api:
     resource: "@EventRequestApiBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /api/
 
 event_request_offer:
     resource: "@EventRequestOfferBundle/Resources/config/routing.yml"

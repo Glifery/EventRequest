@@ -25,7 +25,7 @@ class AppKernel extends Kernel
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Bmatzner\JQueryUIBundle\BmatznerJQueryUIBundle(),
             new SC\DatetimepickerBundle\SCDatetimepickerBundle(),
-            new JMS\SerializerBundle\JMSSerializerBundle(),
+            new JMS\SerializerBundle\JMSSerializerBundle($this),
             new FOS\RestBundle\FOSRestBundle(),
 
             new EventRequest\UserBundle\EventRequestUserBundle(),

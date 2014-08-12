@@ -7,7 +7,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use EventRequest\UserBundle\Entity\User;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="EventRequest\EventBundle\Repository\EventRepository")
  * @ORM\Table(name="event")
  */
 class Event
