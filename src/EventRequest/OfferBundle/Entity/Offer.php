@@ -4,7 +4,7 @@ namespace EventRequest\OfferBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use EventRequest\EventBundle\Entity\Event;
-use EventRequest\UserBundle\Entity\User;
+use EventRequest\UserBundle\Entity\Manager;
 
 /**
  * @ORM\Entity
@@ -27,11 +27,11 @@ class Offer
     private $event;
 
     /**
-     * @var User
-     * @ORM\ManyToOne(targetEntity="EventRequest\UserBundle\Entity\User")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @var Manager
+     * @ORM\ManyToOne(targetEntity="EventRequest\UserBundle\Entity\Manager")
+     * @ORM\JoinColumn(name="manager_id", referencedColumnName="id")
      */
-    private $user;
+    private $manager;
 
     /**
      * @var float
@@ -137,18 +137,18 @@ class Offer
     }
 
     /**
-     * @param \EventRequest\UserBundle\Entity\User $user
+     * @param \EventRequest\UserBundle\Entity\Manager $manager
      */
-    public function setUser($user)
+    public function setManager($manager)
     {
-        $this->user = $user;
+        $this->manager = $manager;
     }
 
     /**
-     * @return \EventRequest\UserBundle\Entity\User
+     * @return \EventRequest\UserBundle\Entity\Manager
      */
-    public function getUser()
+    public function getManager()
     {
-        return $this->user;
+        return $this->manager;
     }
 }

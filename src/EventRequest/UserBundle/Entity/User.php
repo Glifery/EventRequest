@@ -4,33 +4,22 @@ namespace EventRequest\UserBundle\Entity;
 
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation\ExclusionPolicy;
-use JMS\Serializer\Annotation\Expose;
 
 /**
- * @ORM\Entity(repositoryClass="EventRequest\UserBundle\Repository\UserRepository")
+ * @ORM\Entity
  * @ORM\Table(name="user")
- * @ExclusionPolicy("all")
+ * @ORM\InheritanceType("JOINED")
+ * @ORM\DiscriminatorColumn(name="type", type="string")
+ * @ORM\DiscriminatorMap({"client" = "Client", "manager" = "Manager"})
  */
-class User extends BaseUser
+abstract class User extends BaseUser
 {
-    const ROLE_CLIENT = 'ROLE_CLIENT';
-    const ROLE_MANAGER = 'ROLE_MANAGER';
-
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Expose
      */
     protected $id;
-
-    /**
-     * @var string
-     * @ORM\Column(type="string", nullable=true)
-     * @Expose
-     */
-    private $phone;
 
     public function __construct()
     {
@@ -51,21 +40,5 @@ class User extends BaseUser
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * @param string $phone
-     */
-    public function setPhone($phone)
-    {
-        $this->phone = $phone;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPhone()
-    {
-        return $this->phone;
     }
 }

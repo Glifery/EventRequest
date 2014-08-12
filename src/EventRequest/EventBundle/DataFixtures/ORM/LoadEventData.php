@@ -8,10 +8,8 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityNotFoundException;
 use EventRequest\EventBundle\Entity\Event;
-use EventRequest\UserBundle\Repository\UserRepository;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use EventRequest\UserBundle\Entity\User;
 
 class LoadEventData implements FixtureInterface, ContainerAwareInterface, OrderedFixtureInterface
 {
@@ -41,13 +39,13 @@ class LoadEventData implements FixtureInterface, ContainerAwareInterface, Ordere
      */
     public function load(ObjectManager $manager)
     {
-        $users = $this->findAllClients();
+        $clients = $this->findAllEntities('EventRequestUserBundle:Client');
         $cities = $this->findAllEntities('EventRequestEventBundle:City');
 
         $amount = self::EVENTS_AMOUNT;
 
         while ($amount--) {
-            $user = $this->getOneOf($users);
+            $client = $this->getOneOf($clients);
             $city = $this->getOneOf($cities);
 
             $event = new Event();
@@ -56,23 +54,12 @@ class LoadEventData implements FixtureInterface, ContainerAwareInterface, Ordere
             $event->setDate(new \DateTime('+'.rand(2, 30).' days'));
             $event->setAddress($this->getRandomString());
 
-            $event->setUser($user);
+            $event->setClient($client);
             $event->setCity($city);
 
             $manager->persist($event);
             $manager->flush();
         }
-    }
-
-    /**
-     * @return array[\EventRequest\UserBundle\Entity\User]
-     */
-    private function findAllClients()
-    {
-        /** @var UserRepository $userRepository */
-        $userRepository = $this->container->get('doctrine.orm.entity_manager')->getRepository('EventRequestUserBundle:User');
-
-        return $userRepository->findByRole(User::ROLE_CLIENT);
     }
 
     /**

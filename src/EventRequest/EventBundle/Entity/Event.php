@@ -4,7 +4,7 @@ namespace EventRequest\EventBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use EventRequest\UserBundle\Entity\User;
+use EventRequest\UserBundle\Entity\Client;
 
 /**
  * @ORM\Entity(repositoryClass="EventRequest\EventBundle\Repository\EventRepository")
@@ -36,11 +36,11 @@ class Event
     private $description;
 
     /**
-     * @var User
-     * @ORM\ManyToOne(targetEntity="EventRequest\UserBundle\Entity\User")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @var Client
+     * @ORM\ManyToOne(targetEntity="EventRequest\UserBundle\Entity\Client")
+     * @ORM\JoinColumn(name="client_id", referencedColumnName="id")
      */
-    private $user;
+    private $client;
 
     /**
      * @var City
@@ -213,26 +213,19 @@ class Event
     }
 
     /**
-     * Set user
-     *
-     * @param \EventRequest\UserBundle\Entity\User $user
-     * @return Event
+     * @param mixed $client
      */
-    public function setUser(\EventRequest\UserBundle\Entity\User $user = null)
+    public function setClient($client)
     {
-        $this->user = $user;
-
-        return $this;
+        $this->client = $client;
     }
 
     /**
-     * Get user
-     *
-     * @return \EventRequest\UserBundle\Entity\User 
+     * @return mixed
      */
-    public function getUser()
+    public function getClient()
     {
-        return $this->user;
+        return $this->client;
     }
 
     /**
