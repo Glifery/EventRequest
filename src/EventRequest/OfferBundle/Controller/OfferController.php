@@ -23,7 +23,6 @@ class OfferController extends Controller
     {
         /** @var OfferStatusResolver $statusResolver */
         $statusResolver = $this->get('event_request_offer.status_resolver');
-        $context = $this->get('security.context');
         $em = $this->get('doctrine.orm.entity_manager');
         $eventRepository = $em->getRepository('EventRequestEventBundle:Event');
 
@@ -34,18 +33,15 @@ class OfferController extends Controller
 
         $statusResolver->initUser();
         $statusResolver->setEvent($event);
+        $user = $statusResolver->getUser();
 
         $renderData = array(
             'event' => $event,
-            'user' => $statusResolver->getUser(),
+            'user' => $user,
             'expired' => ((new \DateTime()) >= $event->getDate())
         );
 
         if ($event->getStatus() === Event::STATUS_PENDING) {
-            if ($statusResolver->canSeeOffers()) {
-                $renderData['offers'] = $this->getEventOffers($event);
-            }
-
             if ($statusResolver->canMakeOffer()) {
                 $offerForm = $this->createForm(new OfferType());
                 $offerForm->handleRequest($request);
@@ -65,6 +61,10 @@ class OfferController extends Controller
                 }
             }
 
+            if ($statusResolver->canSeeOffers()) {
+                return $this->render('EventRequestOfferBundle:Offer:base.html.twig', $renderData);
+            }
+
             $renderData['selectable'] = $statusResolver->canSelectOffer();
 
             return $this->render('EventRequestOfferBundle:Offer:list.html.twig', $renderData);
@@ -72,7 +72,7 @@ class OfferController extends Controller
 
         if ($event->getStatus() === Event::STATUS_CURRENT) {
             if (!$statusResolver->canSeeSelectedOffer()) {
-                return $this->render('EventRequestOfferBundle:Offer:selected.html.twig', $renderData);
+                return $this->render('EventRequestOfferBundle:Offer:base.html.twig', $renderData);
             }
 
             $selectedOffer = $this->getSelectedOffer($event);
@@ -153,7 +153,7 @@ class OfferController extends Controller
     {
         $offerRepository = $this->get('doctrine.orm.entity_manager')->getRepository('EventRequestOfferBundle:Offer');
 
-        return $offerRepository->findBy(array('event' => $event));
+        return $offerRepository->findBy(array('event' => $event), array('createdAt' => 'DESC'));
     }
 
     /**

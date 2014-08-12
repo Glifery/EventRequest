@@ -3,13 +3,17 @@
 {% block control %}
 
     {% block control_selected_offer %}
-        selected!!
-        <div>{{ offer.user.username }} offer {{ offer.price }} at {{ offer.createdAt|date('m.d.Y') }}</div>
+        <p><strong>{{ 'offer.in_work'|trans({'%manager%': offer.user.username}) }}</strong></p>
         {% if offer.user == user and expired %}
-            I can close!! <a href="{{ path('event_request_offer_close', {'eventId': event.id}) }}">close!!</a>
+            <div class="alert alert-warning" role="alert">
+                <strong>{{ 'offer.expired'|trans }}</strong> {{ 'offer.close_manager'|trans }}
+                <a class="alert-link" href="{{ path('event_request_offer_close', {'eventId': event.id}) }}">{{ 'offer.close'|trans }}</a>
+            </div>
         {% endif %}
         {% if event.user == user and expired %}
-            Manager can close!!
+            <div class="alert alert-success" role="alert">
+                <strong>{{ 'offer.expired'|trans }}</strong> {{ 'offer.close_client'|trans({'%manager%': offer.user.username}) }}
+            </div>
         {% endif %}
     {% endblock control_selected_offer %}
 

@@ -1,0 +1,15 @@
+{% block form %}
+    {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+    {{ form_errors(form) }}
+    {{ form_errors(form.price) }}
+    {{ form_label(form.price, null, {'label_attr': {'class': 'col-sm-7 control-label'}}) }}
+    <div class="col-sm-5">
+        <div class="input-group">
+            {{ form_widget(form.price, {'attr': {'class': 'form-control'}} ) }}
+            <span class="input-group-btn">
+                {{ form_widget(form.save) }}
+            </span>
+        </div>
+    </div>
+    {{ form_end(form) }}
+{% endblock form %}

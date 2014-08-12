@@ -1,10 +1,15 @@
 {% extends 'EventRequestOfferBundle:Offer:base.html.twig' %}
 
+{% if form is defined %}
+    {% form_theme form 'EventRequestOfferBundle:Offer:_form.html.twig' %}
+{% endif %}
+
 {% block control %}
 
     {% block control_list %}
         {% if offers is defined %}
             {% if offers|length > 0 %}
+                <h4>{{ 'offer.list'|trans }}:</h4>
                 <table class="table">
                     <thead>
                         <th>{{ 'offer.field.user'|trans }}</th>
@@ -18,10 +23,10 @@
                         {% for offer in offers %}
                             <tr>
                                 <td>{{ offer.user.username }}</td>
-                                <td>{{ offer.user.price }}</td>
-                                <td>{{ offer.user.createdAt|date('m.d.Y') }}</td>
+                                <td>{{ offer.price }}</td>
+                                <td>{{ offer.createdAt|date('m.d.Y H:i') }}</td>
                                 {% if selectable %}
-                                    <td><a class="btn btn-primary" href="{{ path('event_request_offer_select', {'offerId': offer.id}) }}">Select!!</a></td>
+                                    <td><a class="btn btn-success btn-xs" href="{{ path('event_request_offer_select', {'offerId': offer.id}) }}">{{ 'offer.select'|trans }}</a></td>
                                 {% endif %}
                             </tr>
                         {% endfor %}
@@ -35,6 +40,7 @@
 
     {% block control_form %}
         {% if form is defined %}
+            <hr/>
             {{ form(form) }}
         {% endif %}
     {% endblock control_form %}

@@ -14,7 +14,8 @@ page:
         empty: -не выбрано-
     create:
         link: Создать событие
-    show: Событие
+    show:
+        title: Событие
 
 event:
     field:
@@ -35,9 +36,15 @@ offer:
         event: Событие
         price: Стоимость
         createdAt: Дата
+    select_title: Выбор
     select: Выбрать
-    close: Закрыть
+    close: закрыть
     no_one: Нет ни одного предложения от менеджеров
     form:
         price: Предложите вашу стоимость
-        save: Предложите
+        save: ОК
+    list: Список предложений
+    in_work: В работе у менеджера %manager%
+    expired: Событие произошло
+    close_client: Менеджер %manager% может закрыть его
+    close_manager: Теперь вы можете его

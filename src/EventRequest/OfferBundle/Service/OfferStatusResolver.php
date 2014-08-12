@@ -146,6 +146,10 @@ class OfferStatusResolver
             return false;
         }
 
+        if ($this->isAnonym || (!$this->context->isGranted(User::ROLE_MANAGER))) {
+            return false;
+        }
+
         if ($this->event->getStatus() === Event::STATUS_CLOSED) {
             return false;
         }

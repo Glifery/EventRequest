@@ -1,7 +1,7 @@
 {% extends "::base.html.twig" %}
 
 {% block title %}
-    {{- 'page.show.title'|trans ~ event.name ~ ' ∙ ' ~ parent() -}}
+    {{- 'page.show.title'|trans ~ ' ' ~ event.name ~ ' ∙ ' ~ parent() -}}
 {% endblock title %}
 
 {% block content %}
@@ -13,7 +13,7 @@
         </div>
         <div class="col-md-5">
             {% block status %}
-                <h4>{{ 'event.field.status'|trans }}:<span class="label label-primary pull-right">{{ ('event.field.status_list.' ~ event.status)|trans }}</span></h4>
+                <h4>{{ 'event.field.status'|trans }}:<span class="badge pull-right">{{ ('event.field.status_list.' ~ event.status)|trans }}</span></h4>
                 <hr/>
             {% endblock status %}
             {% block control %}{% endblock control %}
