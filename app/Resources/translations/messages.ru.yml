@@ -14,13 +14,30 @@ page:
         empty: -не выбрано-
     create:
         link: Создать событие
+    show: Событие
 
 event:
     field:
         name: Имя
-        status: Состояние
+        status: Состояние события
+        user: Клиент
+        address: Адрес
+        date: Дата
         status_list:
             0: В ожидании
             1: Текущee
             2: Закрытое
     create: Создать
+
+offer:
+    field:
+        user: Менеджер
+        event: Событие
+        price: Стоимость
+        createdAt: Дата
+    select: Выбрать
+    close: Закрыть
+    no_one: Нет ни одного предложения от менеджеров
+    form:
+        price: Предложите вашу стоимость
+        save: Предложите

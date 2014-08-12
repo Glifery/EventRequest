@@ -2,25 +2,41 @@
 
 {% block control %}
 
+    {% block control_list %}
+        {% if offers is defined %}
+            {% if offers|length > 0 %}
+                <table class="table">
+                    <thead>
+                        <th>{{ 'offer.field.user'|trans }}</th>
+                        <th>{{ 'offer.field.price'|trans }}</th>
+                        <th>{{ 'offer.field.createdAt'|trans }}</th>
+                        {% if selectable %}
+                            <th>{{ 'offer.select'|trans }}</th>
+                        {% endif %}
+                    </thead>
+                    <tbody>
+                        {% for offer in offers %}
+                            <tr>
+                                <td>{{ offer.user.username }}</td>
+                                <td>{{ offer.user.price }}</td>
+                                <td>{{ offer.user.createdAt|date('m.d.Y') }}</td>
+                                {% if selectable %}
+                                    <td><a class="btn btn-primary" href="{{ path('event_request_offer_select', {'offerId': offer.id}) }}">Select!!</a></td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <div class="alert alert-warning" role="alert">{{ 'offer.no_one'|trans }}</div>
+            {% endif %}
+        {% endif %}
+    {% endblock control_list %}
+
     {% block control_form %}
         {% if form is defined %}
             {{ form(form) }}
         {% endif %}
     {% endblock control_form %}
-
-    {% block control_list %}
-        {% if offers is defined %}
-            {% for offer in offers %}
-                <div>
-                    {{ offer.user.username }} offer {{ offer.price }} at {{ offer.createdAt|date('m.d.Y') }}
-                    {% if selectable %}
-                        <a href="{{ path('event_request_offer_select', {'offerId': offer.id}) }}">Select!!</a>
-                    {% endif %}
-                </div>
-            {% else %}
-                no offers yet!!
-            {% endfor %}
-        {% endif %}
-    {% endblock control_list %}
 
 {% endblock control %}

@@ -11,8 +11,12 @@ class OfferType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('price', 'number')
-            ->add('offer', 'submit')
+            ->add('price', 'number', array(
+                    'label' => 'offer.form.price'
+                ))
+            ->add('save', 'submit', array(
+                    'label' => 'offer.form.save'
+                ))
         ;
     }
 

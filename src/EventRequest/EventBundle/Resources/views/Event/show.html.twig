@@ -1,10 +1,11 @@
-<div class="media">
-    <div class="media-body">
-        <h4 class="media-heading">
-            <small class="pull-right">{{ event.date|date('d.m.Y H.i') }}</small>
-            {#<a href="{{ path('event_request_event_show', {'slug': event.slug}) }}">{{ event.name }}</a>#}
-        </h4>
-        <p>{{ event.description }}</p>
-        <h5><small>{{ event.city.country.name }} | {{ event.city.name }} | {{ event.address }}</small></h5>
-    </div>
+<h1>{{ event.name }}</h1>
+<p>{{ event.description }}</p>
+
+<div class="row">
+    <div class="col-md-3"><strong>{{ 'event.field.address'|trans }}</strong></div>
+    <div class="col-md-9">{{ event.city.country.name }}, {{ event.city.name }}, {{ event.address }}</div>
+    <div class="col-md-3"><strong>{{ 'event.field.date'|trans }}</strong></div>
+    <div class="col-md-9">{{ event.date|date('m.d.Y H:i') }}</div>
+    <div class="col-md-3"><strong>{{ 'event.field.user'|trans }}</strong></div>
+    <div class="col-md-9">{{ event.user.username }}</div>
 </div>
