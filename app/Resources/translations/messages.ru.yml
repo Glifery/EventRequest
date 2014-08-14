@@ -14,15 +14,15 @@ page:
         empty: -не выбрано-
     create:
         title: Создание события
-        link: Создать событие
+        link: Разместить событие
     show:
         title: Событие
 
 event:
     field:
-        name: Название
+        name: Наименование
         description: Описание
-        status: Состояние события
+        status: Статус события
         client: Клиент
         address: Адрес
         date: Дата
