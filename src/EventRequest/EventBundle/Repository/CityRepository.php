@@ -14,7 +14,7 @@ class CityRepository extends EntityRepository
     {
         $qb = $this->createQueryBuilder('c');
         $qb
-            ->where('c.country = :country')
+            ->where($qb->expr()->eq('c.country', ':country'))
             ->setParameter('country', $country_id)
         ;
 

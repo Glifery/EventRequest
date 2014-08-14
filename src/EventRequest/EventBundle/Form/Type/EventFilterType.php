@@ -49,7 +49,7 @@ class EventFilterType extends AbstractType
                                 $qb = $filterQuery->getQueryBuilder('e');
                                 $qb
                                     ->innerJoin('e.city', 'city')
-                                    ->andWhere('city.country = :country')
+                                    ->andWhere($filterQuery->getExpr()->eq('city.country', ':country'))
                                     ->setParameter('country', $values['value'])
                                 ;
                             }

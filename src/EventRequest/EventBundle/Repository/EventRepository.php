@@ -13,14 +13,18 @@ use Doctrine\ORM\EntityRepository;
 class EventRepository extends EntityRepository
 {
     /**
-     * @param \DateTime $expired
+     * @param \DateTime $from
+     * @param \DateTime $to
+     * @internal param \DateTime $expired
      * @return array
      */
-    public function findAllNotExpiredEvents(\DateTime $expired)
+    public function findByDate(\DateTime $from, \DateTime $to)
     {
         $qb = $this->createQueryBuilder('e');
         $qb
-            ->where($qb->expr()->gt('e.date', $expired->getTimestamp()))
+            ->where($qb->expr()->between('e.date', ':date_from', ':date_to'))
+            ->setParameter('date_from', $from, \Doctrine\DBAL\Types\Type::DATETIME)
+            ->setParameter('date_to', $to, \Doctrine\DBAL\Types\Type::DATETIME)
         ;
 
         return $qb->getQuery()->getResult();

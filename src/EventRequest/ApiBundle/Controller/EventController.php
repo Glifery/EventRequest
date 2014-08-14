@@ -15,12 +15,11 @@ class EventController extends FOSRestController
         $eventRepository = $this->get('doctrine.orm.entity_manager')->getRepository('EventRequestEventBundle:Event');
 
         $currentDate = new \DateTime();
-        $events = $eventRepository->findAllNotExpiredEvents($currentDate);
-        $events = $events;
+        $endDate = new \DateTime('first day of next month');
+        $endDate->setTime(0, 0, 0);
 
-//        $view = $this->view($events, 200);
+        $events = $eventRepository->findByDate($currentDate, $endDate);
 
-//        $this->handleView($view);
         return $events;
     }
 } 
