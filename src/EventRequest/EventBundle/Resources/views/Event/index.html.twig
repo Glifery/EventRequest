@@ -1,5 +1,7 @@
 {% extends "::base.html.twig" %}
 
+{% form_theme form 'EventRequestEventBundle:Event/Form:filter.html.twig' %}
+
 {% block title %}
     {{- 'page.index.title'|trans ~ ' ∙ ' ~ parent() -}}
 {% endblock title %}
@@ -15,7 +17,10 @@
                                 <a href="{{ path('event_request_offer_index', {'slug': event.slug}) }}">{{ event.name }}</a>
                             </h4>
                             <p>{{ event.description }}</p>
-                            <h5><small>{{ event.city.country.name }} | {{ event.city.name }} | {{ event.address }}</small></h5>
+                            <h5>
+                                <small class="pull-right">{{ event.client }}</small>
+                                <small>{{ event.city.country.name }} | {{ event.city.name }} | {{ event.address }}</small>
+                            </h5>
                         </div>
                     </div>
                     <hr/>

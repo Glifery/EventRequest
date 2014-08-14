@@ -25,6 +25,7 @@ class EventFilterType extends AbstractType
         $builder
             ->setMethod('GET')
             ->add('name', 'filter_text', array(
+                    'label' => 'event.field.name',
                     'apply_filter' => function(QueryInterface $filterQuery, $field, $values) {
                             if (!empty($values['value'])) {
                                 $qb = $filterQuery->getQueryBuilder('e');
@@ -35,9 +36,11 @@ class EventFilterType extends AbstractType
                         }
                 ))
             ->add('status', 'filter_choice', array(
+                    'label' => 'event.field.status',
                     'choices' => Event::getStatusList()
                 ))
             ->add('country', 'filter_entity', array(
+                    'label' => 'event.field.country',
                     'class' => 'EventRequestEventBundle:Country',
                     'property' => 'name',
                     'empty_value' => 'page.filter.empty',
@@ -53,6 +56,7 @@ class EventFilterType extends AbstractType
                         }
                 ))
             ->add('date', 'filter_date_range', array(
+                    'label' => 'event.field.date',
                     'left_date_options' => array(
                         'widget' => 'single_text',
                         'format' =>'dd.MM.yyyy'
@@ -62,7 +66,9 @@ class EventFilterType extends AbstractType
                         'format' =>'dd.MM.yyyy'
                     )
                 ))
-            ->add('save', 'submit')
+            ->add('save', 'submit', array(
+                    'label' => 'event.filter'
+                ))
         ;
 
         $formModifier = function (FormInterface $form, Country $country = null) {
@@ -73,7 +79,8 @@ class EventFilterType extends AbstractType
                     'property'    => 'name',
                     'empty_value' => 'page.filter.empty',
                     'choices'     => $cities,
-                    'required' => false
+                    'required' => false,
+                    'label' => 'event.field.city',
                 ));
         };
 

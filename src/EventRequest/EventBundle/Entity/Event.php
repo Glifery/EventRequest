@@ -81,9 +81,9 @@ class Event
     public static function getStatusList()
     {
         return array(
-            self::STATUS_PENDING => 'event.status.pending',
-            self::STATUS_CURRENT => 'event.status.current',
-            self::STATUS_CLOSED  => 'event.status.closed'
+            self::STATUS_PENDING => 'event.field.status_list.0',
+            self::STATUS_CURRENT => 'event.field.status_list.1',
+            self::STATUS_CLOSED  => 'event.field.status_list.2'
         );
     }
 
