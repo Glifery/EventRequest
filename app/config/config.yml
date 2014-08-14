@@ -4,7 +4,7 @@ imports:
 
 framework:
     #esi:             ~
-    #translator:      { fallback: "%locale%" }
+    translator:      { fallback: "%locale%" }
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -28,6 +28,9 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    form:
+        resources:
+            - LexikFormFilterBundle:Form:form_div_layout.html.twig
 
 # Assetic Configuration
 assetic:
@@ -67,3 +70,55 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    user_class: EventRequest\UserBundle\Entity\User
+    service:
+        user_manager: pugx_user_manager
+
+pugx_multi_user:
+  users:
+    client:
+        entity:
+          class: EventRequest\UserBundle\Entity\Client
+    manager:
+        entity:
+          class: EventRequest\UserBundle\Entity\Manager
+
+stof_doctrine_extensions:
+    orm:
+        default:
+            sluggable: true
+
+knp_paginator:
+    template:
+        pagination: TwitterBootstrapBundle:Pagination:sliding.html.twig
+
+sc_datetimepicker:
+    picker: ~
+
+#app/config/config.yml
+sensio_framework_extra:
+    view:
+        annotations: false
+
+fos_rest:
+    param_fetcher_listener: true
+    body_listener: true
+    format_listener: true
+    view:
+        view_response_listener: 'force'
+    routing_loader:
+        default_format: json
+
+jms_serializer:
+    metadata:
+        directories:
+            user_client:
+                namespace_prefix: "FOS\\UserBundle"
+                path: @EventRequestApiBundle/Resources/config/serializer/user_client
+            user_client:
+                namespace_prefix: "FOS\\UserBundle"
+                path: @EventRequestApiBundle/Resources/config/serializer/user_manager

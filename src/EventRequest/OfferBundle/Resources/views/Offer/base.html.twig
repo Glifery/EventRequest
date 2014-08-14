@@ -1,0 +1,24 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}
+    {{- 'page.show.title'|trans ~ ' ' ~ event.name ~ ' ∙ ' ~ parent() -}}
+{% endblock title %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-7">
+            {{ render(controller('EventRequestEventBundle:Event:show', {
+                'event': event
+            })) }}
+        </div>
+        <div class="col-md-5">
+            {% block status %}
+                <h4>{{ 'event.field.status'|trans }}:<span class="badge pull-right">{{ ('event.field.status_list.' ~ event.status)|trans }}</span></h4>
+                <hr/>
+            {% endblock status %}
+            {% block control %}{% endblock control %}
+        </div>
+    </div>
+{% endblock content %}
+
+

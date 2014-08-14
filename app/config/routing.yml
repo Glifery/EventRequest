@@ -1,0 +1,34 @@
+event_request_api:
+    resource: "@EventRequestApiBundle/Resources/config/routing.yml"
+    prefix:   /api/
+
+event_request_offer:
+    resource: "@EventRequestOfferBundle/Resources/config/routing.yml"
+    prefix:   /
+
+event_request_user:
+    resource: "@EventRequestUserBundle/Resources/config/routing.yml"
+    prefix:   /
+
+fos_user_security:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+
+fos_user_profile:
+    resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
+    prefix: /profile
+
+fos_user_register:
+    resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
+    prefix: /register
+
+fos_user_resetting:
+    resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
+    prefix: /resetting
+
+fos_user_change_password:
+    resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
+    prefix: /profile
+
+event_request_event:
+    resource: "@EventRequestEventBundle/Resources/config/routing.yml"
+    prefix:   /

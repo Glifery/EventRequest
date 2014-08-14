@@ -1,0 +1,3 @@
+events:
+    type: rest
+    resource: EventRequest\ApiBundle\Controller\EventController

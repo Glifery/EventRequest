@@ -1,0 +1,7 @@
+parameters:
+    event_request_offer.status_resolver.class: EventRequest\OfferBundle\Service\OfferStatusResolver
+
+services:
+    event_request_offer.status_resolver:
+        class: %event_request_offer.status_resolver.class%
+        arguments: [@security.context, @doctrine.orm.entity_manager]

@@ -1,0 +1,68 @@
+/**
+ * dependent fields
+ */
+(function() {
+    var formName = '{{ form.vars.name }}',
+        countrySelector = '#'+formName+'_country',
+        citySelector = '#'+formName+'_city',
+        url = '{{ path('event_request_event_filter') }}'
+
+    function countryChangeHandler() {
+        var $cityBlock = $(citySelector),
+            request = {
+                type: 'post',
+                url: url,
+                data: {
+                    country: $(this).val()
+                }
+            }
+
+        $cityBlock.attr('disabled', 'disabled');
+
+        $.ajax(request).then(handleResponce);
+    }
+
+    function handleResponce(data) {
+        var $cityBlock = $(citySelector);
+
+        $cityBlock
+            .removeAttr('disabled')
+            .html($('<option>').val('').text('{{ 'page.filter.empty'|trans }}'))
+        ;
+
+        for (var index in data) {
+            $cityBlock.append($('<option>').val(data[index].id).text(data[index].name));
+        }
+    }
+
+    $(function() {
+        $(countrySelector).change(countryChangeHandler);
+    });
+})();
+
+/**
+ * datepicker
+ */
+(function() {
+    var formName = '{{ form.vars.name }}';
+
+    $(function() {
+        $('#'+formName+'_date_left_date').datepicker({
+            dateFormat: 'dd.mm.yy',
+            onClose: function(selectedDate) {
+                $('#'+formName+'_date_right_date').datepicker("option", "minDate", selectedDate);
+            }
+        });
+
+        $('#'+formName+'_date_right_date').datepicker({
+            dateFormat: 'dd.mm.yy',
+            onClose: function(selectedDate) {
+                $('#'+formName+'_date_left_date').datepicker("option", "maxDate", selectedDate);
+            }
+        });
+
+        $('#'+formName+'_date').datepicker({
+            dateFormat: 'dd.mm.yy'
+        });
+    });
+})();

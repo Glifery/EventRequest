@@ -1,0 +1,55 @@
+{% extends "::base.html.twig" %}
+
+{% form_theme form 'EventRequestEventBundle:Event/Form:filter.html.twig' %}
+
+{% block title %}
+    {{- 'page.index.title'|trans ~ ' ∙ ' ~ parent() -}}
+{% endblock title %}
+
+{% block content %}
+        <div class="row">
+            <div class="col-md-8">
+                {% for event in events %}
+                    <div class="media">
+                        <div class="media-body">
+                            <h4 class="media-heading">
+                                <small class="pull-right">{{ event.date|date('d.m.Y H.i') }}</small>
+                                <a href="{{ path('event_request_offer_index', {'slug': event.slug}) }}">{{ event.name }}</a>
+                            </h4>
+                            <p>{{ event.description }}</p>
+                            <h5>
+                                {% if app.user is defined and event.client == app.user %}
+                                    <small class="pull-right">
+                                        <a href="{{ path('event_request_event_create', {'slug': event.slug}) }}">
+                                            {{ 'event.edit'|trans }}
+                                        </a>
+                                    </small>
+                                {% else %}
+                                    <small class="pull-right">{{ event.client }}</small>
+                                {% endif %}
+                                <small>{{ event.city.country.name }} | {{ event.city.name }} | {{ event.address }}</small>
+                            </h5>
+                        </div>
+                    </div>
+                    <hr/>
+                {% else %}
+                    <div>no events</div>
+                {% endfor %}
+                {{ knp_pagination_render(events) }}
+            </div>
+            <div class="col-md-4">
+                {{ form(form) }}
+            </div>
+        </div>
+{% endblock content %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/bmatznerjqueryui/js/minified/jquery-ui.min.js') }}"></script>
+    <script type="text/javascript">{{ include('EventRequestEventBundle:Event:form.js.twig') }}</script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/bmatznerjqueryui/css/smoothness/jquery-ui.min.css') }}" />
+{% endblock %}

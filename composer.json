@@ -17,7 +17,20 @@
         "symfony/monolog-bundle": "~2.4",
         "sensio/distribution-bundle": "~3.0",
         "sensio/framework-extra-bundle": "~3.0",
-        "incenteev/composer-parameter-handler": "~2.0"
+        "incenteev/composer-parameter-handler": "~2.0",
+        "doctrine/doctrine-fixtures-bundle": "2.2.*",
+        "friendsofsymfony/user-bundle": "~2.0@dev",
+        "pugx/multi-user-bundle": "3.0.*@dev"
+        "twitter/bootstrap-bundle": "*",
+        "cbc/symfony2-bootstrap": "1.1.*",
+        "gedmo/doctrine-extensions": "dev-master",
+        "stof/doctrine-extensions-bundle": "~1.1@dev",
+        "lexik/form-filter-bundle": "2.*@dev",
+        "knplabs/knp-paginator-bundle": "~2.4",
+        "bmatzner/jquery-ui-bundle": "*",
+        "stephanecollot/datetimepicker-bundle": "dev-master",
+        "jms/serializer-bundle": "dev-master",
+        "friendsofsymfony/rest-bundle": "dev-master",
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

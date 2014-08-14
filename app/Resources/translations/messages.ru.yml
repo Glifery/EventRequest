@@ -1,0 +1,57 @@
+security:
+    login:
+        title: Авторизация
+        username: ФИО
+        password: Пароль
+        remember_me: Запомнить меня
+        submit: Войти
+
+page:
+    logo: EventRequest
+    index:
+        title: Список событий
+    filter:
+        empty: -не выбрано-
+    create:
+        title: Создание события
+        link: Разместить событие
+    show:
+        title: Событие
+
+event:
+    field:
+        name: Наименование
+        description: Описание
+        status: Статус события
+        client: Клиент
+        address: Адрес
+        date: Дата
+        country: Страна
+        city: Город
+        save: Сохранить
+        status_list:
+            0: В ожидании
+            1: Текущee
+            2: Закрытое
+    create: Создать
+    filter: Фильтровать
+    edit: Редактировать
+
+offer:
+    field:
+        manager: Менеджер
+        event: Событие
+        price: Стоимость
+        createdAt: Дата
+    select_title: Выбор
+    select: Выбрать
+    close: закрыть
+    no_one: Нет ни одного предложения от менеджеров
+    form:
+        price: Предложите вашу стоимость
+        save: ОК
+    list: Список предложений
+    in_work: В работе у менеджера %manager%
+    expired: Событие произошло
+    close_client: Менеджер %manager% может закрыть его
+    close_manager: Теперь вы можете его

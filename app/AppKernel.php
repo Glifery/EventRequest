@@ -16,6 +16,23 @@ class AppKernel extends Kernel
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
+            new FOS\UserBundle\FOSUserBundle(),
+            new PUGX\MultiUserBundle\PUGXMultiUserBundle(),
+            new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
+            new Twitter\BootstrapBundle\TwitterBootstrapBundle(),
+            new CBC\Bundle\BootstrapBundle\BootstrapBundle(),
+            new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
+            new Lexik\Bundle\FormFilterBundle\LexikFormFilterBundle(),
+            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+            new Bmatzner\JQueryUIBundle\BmatznerJQueryUIBundle(),
+            new SC\DatetimepickerBundle\SCDatetimepickerBundle(),
+            new JMS\SerializerBundle\JMSSerializerBundle($this),
+            new FOS\RestBundle\FOSRestBundle(),
+
+            new EventRequest\UserBundle\EventRequestUserBundle(),
+            new EventRequest\EventBundle\EventRequestEventBundle(),
+            new EventRequest\OfferBundle\EventRequestOfferBundle(),
+            new EventRequest\ApiBundle\EventRequestApiBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

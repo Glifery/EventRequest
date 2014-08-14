@@ -1,0 +1,22 @@
+<h1>
+    {% if app.user is defined and event.client == app.user %}
+        <a class="btn btn-default btn-sm pull-right" href="{{ path('event_request_event_create', {'slug': event.slug}) }}">
+            <span class="glyphicon glyphicon-pencil"></span> {{ 'event.edit'|trans }}
+        </a>
+    {% endif %}
+    {{ event.name }}
+</h1>
+<p>{{ event.description }}</p>
+
+<div class="row">
+    <div class="col-md-3"><strong>{{ 'event.field.address'|trans }}</strong></div>
+    <div class="col-md-9">{{ event.city.country.name }}, {{ event.city.name }}, {{ event.address }}</div>
+</div>
+<div class="row">
+    <div class="col-md-3"><strong>{{ 'event.field.date'|trans }}</strong></div>
+    <div class="col-md-9">{{ event.date|date('m.d.Y H:i') }}</div>
+</div>
+<div class="row">
+    <div class="col-md-3"><strong>{{ 'event.field.client'|trans }}</strong></div>
+    <div class="col-md-9">{{ event.client.username }}</div>
+</div>

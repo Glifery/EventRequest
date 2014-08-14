@@ -1,0 +1,22 @@
+{% extends "::base.html.twig" %}
+
+{% form_theme form 'EventRequestEventBundle:Event/Form:create.html.twig' %}
+
+{% block title %}
+    {{- 'page.create.title'|trans ~ ' ∙ ' ~ parent() -}}
+{% endblock title %}
+
+{% block content %}
+            {{ form(form) }}
+{% endblock content %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ form_javascript(form) }}
+    <script type="text/javascript">{{ include('EventRequestEventBundle:Event:form.js.twig') }}</script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ form_stylesheet(form) }}
+{% endblock %}
