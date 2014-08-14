@@ -1,4 +1,11 @@
-<h1>{{ event.name }}</h1>
+<h1>
+    {% if app.user is defined and event.client == app.user %}
+        <a class="btn btn-default btn-sm pull-right" href="{{ path('event_request_event_create', {'slug': event.slug}) }}">
+            <span class="glyphicon glyphicon-pencil"></span> {{ 'event.edit'|trans }}
+        </a>
+    {% endif %}
+    {{ event.name }}
+</h1>
 <p>{{ event.description }}</p>
 
 <div class="row">

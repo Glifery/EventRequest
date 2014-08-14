@@ -67,7 +67,7 @@ class EventController extends Controller
      * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request, $slug)
     {
         if (!$this->get('security.context')->isGranted('ROLE_CLIENT')) {
             throw new AccessDeniedException('Access denied for non client users');
@@ -75,7 +75,17 @@ class EventController extends Controller
 
         $em = $this->get('doctrine.orm.entity_manager');
 
-        $filterForm = $this->createForm(new EventCreateType());
+        if ($slug) {
+            $event = $em->getRepository('EventRequestEventBundle:Event')->findOneBy(array('slug' => $slug));
+            if (!$event) {
+                throw $this->createNotFoundException('Event with slug '.$slug.' does not exist');
+            }
+
+            $filterForm = $this->createForm(new EventCreateType(), $event);
+        } else {
+            $filterForm = $this->createForm(new EventCreateType());
+        }
+
         $filterForm->handleRequest($request);
 
         if ($filterForm->isValid()) {

@@ -32,9 +32,11 @@ class EventCreateType extends AbstractType
                     'class' => 'EventRequestEventBundle:Country',
                     'property' => 'name',
                     'empty_value' => 'page.filter.empty',
-                    'mapped' => false
+                    'mapped' => false,
+                    'label' => 'event.field.country'
                 ))
             ->add('date', 'collot_datetime', array(
+                    'label' => 'event.field.date',
                     'date_widget' => "single_text",
                     'time_widget' => "single_text",
                     'pickerOptions' => array(
@@ -60,34 +62,41 @@ class EventCreateType extends AbstractType
         ;
 
         $formModifier = function (FormInterface $form, Country $country = null) {
-            $cities = null === $country ? array() : $country->getCities();
+            $cities = ($country === null) ? array() : $country->getCities();
 
             $form->add('city', 'entity', array(
                     'class'       => 'EventRequestEventBundle:City',
                     'property'    => 'name',
                     'empty_value' => 'page.filter.empty',
                     'choices'     => $cities,
+                    'label' => 'event.field.city',
                 ));
         };
 
         $builder->addEventListener(
             FormEvents::PRE_SET_DATA,
             function (FormEvent $event) use ($formModifier) {
-                /** @var City $city */
-                $city = $event->getData();
-
-                if ($city) {
+                if ($data = $event->getData() && $city = $event->getData()->getCity()) {
                     $formModifier($event->getForm(), $city->getCountry());
+                }else {
+                    $formModifier($event->getForm(), null);
                 }
 
-                $formModifier($event->getForm(), null);
+            }
+        );
+
+        $builder->addEventListener(
+            FormEvents::POST_SET_DATA,
+            function (FormEvent $event) use ($formModifier) {
+                if ($data = $event->getData() && $city = $event->getData()->getCity()) {
+                        $event->getForm()->get('country')->setData($city->getCountry());
+                }
             }
         );
 
         $builder->get('country')->addEventListener(
             FormEvents::POST_SUBMIT,
             function (FormEvent $event) use ($formModifier) {
-                /** @var Country $country */
                 $country = $event->getForm()->getData();
 
                 $formModifier($event->getForm()->getParent(), $country);

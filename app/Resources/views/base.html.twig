@@ -5,18 +5,15 @@
 {% block nav %}
     <nav class="navbar navbar-default" role="navigation">
         <div class="container">
-                <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
                     <a class="navbar-brand" href="{{ path('event_request_event_index') }}">{{ 'page.logo'|trans }}</a>
                 </div>
-
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse">
                     {% if is_granted("ROLE_CLIENT") %}
                         <div class="nav navbar-nav">
                             <a class="btn btn-success navbar-btn" href="{{ path('event_request_event_create') }}">{{ 'page.create.link'|trans }}</a>
                         </div>
                     {% endif %}
+                <div class="collapse navbar-collapse">
                     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                         <div class="nav navbar-nav navbar-right">
                             <a href="{{ path('fos_user_security_logout') }}" class="btn btn-default navbar-btn">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a>
@@ -29,8 +26,6 @@
                             <a href="{{ path('fos_user_security_login') }}" class="btn btn-default navbar-btn">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
                         </div>
                     {% endif %}
-
-
                 </div>
         </div>
     </nav>

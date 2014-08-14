@@ -18,7 +18,15 @@
                             </h4>
                             <p>{{ event.description }}</p>
                             <h5>
-                                <small class="pull-right">{{ event.client }}</small>
+                                {% if app.user is defined and event.client == app.user %}
+                                    <small class="pull-right">
+                                        <a href="{{ path('event_request_event_create', {'slug': event.slug}) }}">
+                                            {{ 'event.edit'|trans }}
+                                        </a>
+                                    </small>
+                                {% else %}
+                                    <small class="pull-right">{{ event.client }}</small>
+                                {% endif %}
                                 <small>{{ event.city.country.name }} | {{ event.city.name }} | {{ event.address }}</small>
                             </h5>
                         </div>
