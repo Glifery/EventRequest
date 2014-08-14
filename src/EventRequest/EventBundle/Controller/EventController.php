@@ -79,10 +79,10 @@ class EventController extends Controller
         $filterForm->handleRequest($request);
 
         if ($filterForm->isValid()) {
-            $user = $this->get('security.context')->getToken()->getUser();
+            $client = $this->get('security.context')->getToken()->getUser();
             /** @var Event $event */
             $event = $filterForm->getData();
-            $event->setUser($user);
+            $event->setClient($client);
 
             $em->persist($event);
             $em->flush();

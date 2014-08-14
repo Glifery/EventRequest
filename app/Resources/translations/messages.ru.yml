@@ -21,7 +21,7 @@ event:
     field:
         name: Имя
         status: Состояние события
-        user: Клиент
+        client: Клиент
         address: Адрес
         date: Дата
         status_list:
@@ -32,7 +32,7 @@ event:
 
 offer:
     field:
-        user: Менеджер
+        manager: Менеджер
         event: Событие
         price: Стоимость
         createdAt: Дата

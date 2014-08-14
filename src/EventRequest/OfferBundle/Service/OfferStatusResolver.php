@@ -107,7 +107,7 @@ class OfferStatusResolver
 
         $thisUserCriteria = array(
             'event' => $event,
-            'user' => $user
+            'manager' => $user
         );
 
         return $offerRepository->findOneBy($thisUserCriteria);
@@ -146,12 +146,16 @@ class OfferStatusResolver
             return false;
         }
 
-        if ($this->isAnonym || (!$this->context->isGranted(User::ROLE_MANAGER))) {
+        if ($this->isAnonym) {
             return false;
         }
 
         if ($this->event->getStatus() === Event::STATUS_CLOSED) {
             return false;
+        }
+
+        if (($this->context->isGranted(User::ROLE_MANAGER)) || ($this->context->isGranted(User::ROLE_CLIENT) && $this->user === $this->event->getClient())) {
+            return true;
         }
 
         return true;
@@ -166,7 +170,7 @@ class OfferStatusResolver
             return false;
         }
 
-        if ($this->isAnonym || ($this->user !== $this->event->getUser())) {
+        if ($this->isAnonym || ($this->user !== $this->event->getClient())) {
             return false;
         }
 
@@ -190,7 +194,7 @@ class OfferStatusResolver
                 'event' => $this->event,
                 'selected' => true
             ));
-        if ($this->isAnonym || !$selectedOffer || ($this->user !== $selectedOffer->getUser())) {
+        if ($this->isAnonym || !$selectedOffer || ($this->user !== $selectedOffer->getManager())) {
             return false;
         }
 
@@ -214,11 +218,11 @@ class OfferStatusResolver
             return false;
         }
 
-        if ($this->user == $this->event->getUser()) {
+        if ($this->user == $this->event->getClient()) {
             return true;
         }
 
-        if (($offer = $this->getUserOffer($this->event, $this->user)) && ($this->user === $offer->getUser())) {
+        if (($offer = $this->getUserOffer($this->event, $this->user)) && ($this->user === $offer->getManager())) {
             return true;
         }
 

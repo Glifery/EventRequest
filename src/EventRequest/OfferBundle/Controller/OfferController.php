@@ -9,7 +9,6 @@ use EventRequest\OfferBundle\Form\Type\OfferType;
 use EventRequest\OfferBundle\Service\OfferStatusResolver;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Validator\Constraints\DateTime;
 
 class OfferController extends Controller
 {
@@ -52,7 +51,7 @@ class OfferController extends Controller
                     /** @var Offer $offer */
                     $offer = $offerForm->getData();
                     $offer->setEvent($event);
-                    $offer->setUser($user);
+                    $offer->setManager($user);
 
                     $em->persist($offer);
                     $em->flush();
@@ -62,7 +61,7 @@ class OfferController extends Controller
             }
 
             if ($statusResolver->canSeeOffers()) {
-                return $this->render('EventRequestOfferBundle:Offer:base.html.twig', $renderData);
+                $renderData['offers'] = $this->getEventOffers($event);
             }
 
             $renderData['selectable'] = $statusResolver->canSelectOffer();

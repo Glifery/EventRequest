@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8faaec98cec39d1d8801df902f2c5435",
+    "hash": "5a067ab5ee94368cf10b9c18d3fce7eb",
     "packages": [
         {
             "name": "bmatzner/jquery-bundle",
@@ -1929,6 +1929,58 @@
             "time": "2012-12-21 11:40:51"
         },
         {
+            "name": "pugx/multi-user-bundle",
+            "version": "dev-master",
+            "target-dir": "PUGX/MultiUserBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/PUGX/PUGXMultiUserBundle.git",
+                "reference": "2fee4ab37563c4ea214469466e2a97e95e7346a0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/PUGX/PUGXMultiUserBundle/zipball/2fee4ab37563c4ea214469466e2a97e95e7346a0",
+                "reference": "2fee4ab37563c4ea214469466e2a97e95e7346a0",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/common": "~2.2",
+                "doctrine/doctrine-bundle": "1.2.*",
+                "friendsofsymfony/user-bundle": "2.0.x-dev@dev"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "PUGX\\MultiUserBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Leonardo Proietti",
+                    "email": "leonardo.proietti@gmail.com"
+                },
+                {
+                    "name": "Community",
+                    "homepage": "https://github.com/PUGX/PUGXMultiUserBundle/contributors"
+                }
+            ],
+            "description": "Symfony PUGXMultiUserBundle",
+            "homepage": "https://github.com/PUGX",
+            "keywords": [
+                "user management multi user management"
+            ],
+            "time": "2014-05-12 11:31:17"
+        },
+        {
             "name": "robloach/component-installer",
             "version": "0.0.12",
             "source": {
@@ -2982,8 +3034,9 @@
         "stof/doctrine-extensions-bundle": 20,
         "lexik/form-filter-bundle": 20,
         "stephanecollot/datetimepicker-bundle": 20,
+        "jms/serializer-bundle": 20,
         "friendsofsymfony/rest-bundle": 20,
-        "jms/serializer-bundle": 20
+        "pugx/multi-user-bundle": 20
     },
     "prefer-stable": false,
     "platform": {

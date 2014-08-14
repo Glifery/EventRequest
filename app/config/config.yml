@@ -75,6 +75,17 @@ fos_user:
     db_driver: orm
     firewall_name: main
     user_class: EventRequest\UserBundle\Entity\User
+    service:
+        user_manager: pugx_user_manager
+
+pugx_multi_user:
+  users:
+    client:
+        entity:
+          class: EventRequest\UserBundle\Entity\Client
+    manager:
+        entity:
+          class: EventRequest\UserBundle\Entity\Manager
 
 stof_doctrine_extensions:
     orm:

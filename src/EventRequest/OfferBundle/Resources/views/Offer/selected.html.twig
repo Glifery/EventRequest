@@ -3,16 +3,16 @@
 {% block control %}
 
     {% block control_selected_offer %}
-        <p><strong>{{ 'offer.in_work'|trans({'%manager%': offer.user.username}) }}</strong></p>
-        {% if offer.user == user and expired %}
+        <p><strong>{{ 'offer.in_work'|trans({'%manager%': offer.manager.username}) }}</strong></p>
+        {% if offer.manager == user and expired %}
             <div class="alert alert-warning" role="alert">
                 <strong>{{ 'offer.expired'|trans }}</strong> {{ 'offer.close_manager'|trans }}
                 <a class="alert-link" href="{{ path('event_request_offer_close', {'eventId': event.id}) }}">{{ 'offer.close'|trans }}</a>
             </div>
         {% endif %}
-        {% if event.user == user and expired %}
+        {% if event.client == user and expired %}
             <div class="alert alert-success" role="alert">
-                <strong>{{ 'offer.expired'|trans }}</strong> {{ 'offer.close_client'|trans({'%manager%': offer.user.username}) }}
+                <strong>{{ 'offer.expired'|trans }}</strong> {{ 'offer.close_client'|trans({'%manager%': offer.manager.username}) }}
             </div>
         {% endif %}
     {% endblock control_selected_offer %}
