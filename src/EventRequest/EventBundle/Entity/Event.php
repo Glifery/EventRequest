@@ -51,7 +51,7 @@ class Event
 
     /**
      * @var string
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="string")
      */
     private $address;
 

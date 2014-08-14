@@ -13,17 +13,22 @@ page:
     filter:
         empty: -не выбрано-
     create:
+        title: Создание события
         link: Создать событие
     show:
         title: Событие
 
 event:
     field:
-        name: Имя
+        name: Название
+        description: Описание
         status: Состояние события
         client: Клиент
         address: Адрес
         date: Дата
+        country: Страна
+        city: Город
+        save: Сохранить
         status_list:
             0: В ожидании
             1: Текущee

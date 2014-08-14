@@ -1,18 +1,13 @@
 {% extends "::base.html.twig" %}
 
+{% form_theme form 'EventRequestEventBundle:Event/Form:create.html.twig' %}
+
 {% block title %}
     {{- 'page.create.title'|trans ~ ' ∙ ' ~ parent() -}}
 {% endblock title %}
 
 {% block content %}
-    <div class="row">
-        <div class="col-md-8">
             {{ form(form) }}
-        </div>
-        <div class="col-md-4">
-            ...
-        </div>
-    </div>
 {% endblock content %}
 
 {% block javascripts %}
