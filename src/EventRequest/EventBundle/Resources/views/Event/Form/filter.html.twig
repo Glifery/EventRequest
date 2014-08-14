@@ -1,0 +1,21 @@
+{% block form %}
+    {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+        {{ form_row(form.name) }}
+        {{ form_row(form.status) }}
+        {{ form_row(form.country) }}
+        {{ form_row(form.city) }}
+        {{ form_row(form.date) }}
+        {{ form_row(form.save) }}
+    {{ form_end(form) }}
+{% endblock form %}
+
+{% block filter_date_range_widget %}
+    <div class="filter-date-range row">
+        <div class="col-md-6">
+            {{ form_widget(form.left_date, {'attr': attr}) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_widget(form.right_date, {'attr': attr}) }}
+        </div>
+    </div>
+{% endblock filter_date_range_widget %}

@@ -32,11 +32,9 @@ class EventCreateType extends AbstractType
                     'class' => 'EventRequestEventBundle:Country',
                     'property' => 'name',
                     'empty_value' => 'page.filter.empty',
-                    'mapped' => false,
-                    'label' => 'event.field.country'
+                    'mapped' => false
                 ))
             ->add('date', 'collot_datetime', array(
-                    'label' => 'event.field.date',
                     'date_widget' => "single_text",
                     'time_widget' => "single_text",
                     'pickerOptions' => array(
@@ -58,9 +56,7 @@ class EventCreateType extends AbstractType
                         'viewSelect' => 'hour',
                         'showMeridian' => false,
                     )))
-            ->add('save', 'submit', array(
-                    'label' => 'event.field.save'
-                ))
+            ->add('save', 'submit')
         ;
 
         $formModifier = function (FormInterface $form, Country $country = null) {
