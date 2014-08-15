@@ -30,7 +30,7 @@
         "bmatzner/jquery-ui-bundle": "*",
         "stephanecollot/datetimepicker-bundle": "dev-master",
         "jms/serializer-bundle": "dev-master",
-        "friendsofsymfony/rest-bundle": "dev-master",
+        "friendsofsymfony/rest-bundle": "dev-master"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"
