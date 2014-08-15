@@ -1,3 +1,0 @@
-event_request_user_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: EventRequestUserBundle:Default:index }

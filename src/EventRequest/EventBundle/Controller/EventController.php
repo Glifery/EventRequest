@@ -64,7 +64,9 @@ class EventController extends Controller
 
     /**
      * @param Request $request
+     * @param string $slug
      * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function createAction(Request $request, $slug)
